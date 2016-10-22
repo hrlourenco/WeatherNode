@@ -12,7 +12,6 @@ var InscSchema = new Schema({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
   var a1 = new Inscricao(
     {
       bi:'123',
@@ -22,8 +21,9 @@ router.get('/', function(req, res, next) {
     }
   );
   a1.save(function(err, result) {
-    callback(err, result);
+    res.send(result);
   })
+//  res.render('index', { title: 'Express' });
 });
 
 module.exports = router;
