@@ -1,0 +1,13 @@
+DEPLOYMENT
+------------------
+heroku
+https://www.heroku.com/
+email: a8839@alunos.ipca.pt
+password: HHJmei*2016
+>> https://weatheripca.herokuapp.com/
+****************************************************************
+REPOSITORIO
+------------------
+https://github.com/hrlourenco/WeatherNode
+Download: https://github.com/hrlourenco/WeatherNode.git
+Download: git@github.com:hrlourenco/WeatherNode.git
