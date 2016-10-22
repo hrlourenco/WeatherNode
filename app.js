@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongo = require('mongoose');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -56,5 +57,6 @@ app.use(function(err, req, res, next) {
   });
 });
 
+mongo.connect('mongodb://heroku_dxp6kqxx:HHJmei*2016@ds063536.mlab.com:63536/heroku_dxp6kqxx');
 
 module.exports = app;
