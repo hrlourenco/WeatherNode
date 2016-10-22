@@ -10,6 +10,8 @@ var InscSchema = new Schema({
   nascimento: String
 });
 
+var Inscricao = mongoose.model('inscricao', InscSchema);
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var a1 = new Inscricao(
