@@ -57,6 +57,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-mongo.connect('mongodb://heroku_dxp6kqxx:HHJmei*2016@ds063536.mlab.com:63536/heroku_dxp6kqxx');
+//mongo.connect('mongodb://heroku_dxp6kqxx:HHJmei*2016@ds063536.mlab.com:63536/heroku_dxp6kqxx');
+mongo.connect('mongodb://heroku_dxp6kqxx:eboh9dtrtam8u6hdt3k0kkgqni@ds063536.mlab.com:63536/heroku_dxp6kqxx');
+
 
 module.exports = app;
