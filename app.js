@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongo = require('mongoose');
-
+var isDevMode = true; //DEV or PROD
 var api = require('./routes/api');
 
 var app = express();
@@ -58,8 +58,14 @@ app.use(function(err, req, res, next) {
   });
 });
 
-//mongo.connect('mongodb://heroku_dxp6kqxx:HHJmei*2016@ds063536.mlab.com:63536/heroku_dxp6kqxx');
-mongo.connect('mongodb://heroku_dxp6kqxx:eboh9dtrtam8u6hdt3k0kkgqni@ds063536.mlab.com:63536/heroku_dxp6kqxx');
+if(isDevMode)
+{
+  mongo.connect('mongodb://localhost/weatheripca');
+}
+else
+{
+  mongo.connect('mongodb://heroku_dxp6kqxx:eboh9dtrtam8u6hdt3k0kkgqni@ds063536.mlab.com:63536/heroku_dxp6kqxx');
+}
 
 
 module.exports = app;
