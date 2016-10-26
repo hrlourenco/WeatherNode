@@ -23,7 +23,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/angular')));
 app.use(express.static(path.join(__dirname, 'node_modules/angular-route')));
+app.use(express.static(path.join(__dirname, 'node_modules/angular-animate')));
 app.use(express.static(path.join(__dirname, 'node_modules/bootstrap')));
+app.use(express.static(path.join(__dirname, 'node_modules/js-sha256')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1', api);
 
@@ -66,6 +69,5 @@ else
 {
   mongo.connect('mongodb://heroku_dxp6kqxx:eboh9dtrtam8u6hdt3k0kkgqni@ds063536.mlab.com:63536/heroku_dxp6kqxx');
 }
-
 
 module.exports = app;
