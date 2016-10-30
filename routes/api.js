@@ -8,23 +8,69 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/users/:ValHash', function(req, res, next) {
-  res.status(200).send('Inscrição com sucesso');
+/* GET login. */
+router.get('/users/:stringHash/', function(req, res, next) {
+  User.findOne({'passwordHash': req.params.stringHash}, function (err, user) {
+    if (err) return res.status(403).send('Acesso negado');
+    if (!user.enable) return res.status(403).send('Acesso negado'); 
+    res.status(200).json(user);
+  })
+});
+
+/* POST new user . */
+router.post('/users/', function(req, res, next) {
+  if(!(req.body.username == '' && req.body.username == undefined)){
+    var aux = new User(req.body);
+    aux.save(function(err, user){
+      if (!err){
+        res.status(200).json(user);
+      }else{
+        res.status(400).send('Erro ao inserir registo');
+      }
+    });
+  }else{
+    res.status(400).send('Erro ao inserir registo');
+  };
+});
+
+/* PUT update user . */
+router.put('/users/', function(req, res, next) {
+  User.findOneAndUpdate({"_id":req.body._id}, {
+    "username":req.body.username,
+    "passwordHash":req.body.passwordHash,
+    "nome":req.body.nome,
+    "ratingsPraias":req.body.ratingsPraias,
+    "credito":req.body.credito
+  }, function(err, user){
+    if (err) return res.status(400).send('Erro ao actualizar registo');
+    res.status(200).send('Actualizado com sucesso');
+  })
+});
+
+/* PUT delete user . */
+router.delete('/users/', function(req, res, next) {
+  User.findOneAndUpdate({"_id":req.body._id}, {
+    "enable":false
+  }, function(err, user){
+    if (err) return res.status(400).send('Erro ao actualizar registo');
+    res.status(200).send('Actualizado com sucesso');
+  })
 });
 
 var userSchema = mongoose.Schema({
+    enable: { type: Boolean, default: true },
     username: String,
-    password: String,
+    passwordHash: String,
     nome: String,
-    ratingsPraias: {
+    ratingsPraias: [{
       cidade: String,
       localidade: String,
       praia: String,
       ratingGeral: Number,
-      ratingCrianças: Number,
+      ratingCriancas: Number,
       ratingSeguranca: Number,
       ratingEquipamento: Number
-    },
+    }],
     credito: Number,
     timeStamp: { type: Date, default: Date.now }
 });
@@ -40,13 +86,13 @@ var ratingsSchema = mongoose.Schema({
     ratingCriancas: Number,
     ratingCriancasNum: Number,
     ratingSeguranca: Number,
-    ratingSegurançaNum: Number,
+    ratingSegurancaNum: Number,
     ratingEquipamento: Number,
     ratingEquipamentoNum: Number
   }]
 });
 
-var user = mongoose.model('user', userSchema);
-var ratings = mongoose.model('ratings', ratingsSchema);
+var User = mongoose.model('user', userSchema);
+var Ratings = mongoose.model('ratings', ratingsSchema);
 
 module.exports = router;
