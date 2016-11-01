@@ -1,25 +1,3 @@
-.mainView {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  right: 0;
-  top: 45px;
-  bottom: 0;
-}
-
-.mainView.ng-enter, .mainView.ng-leave {
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
-  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
-  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
-}
-
-.mainView.ng-enter { left: -100%; }
-.mainView.ng-enter.ng-enter-active { left: 0; }
-.mainView.ng-leave { left: 0; }
-.mainView.ng-leave.ng-leave-active { left: 100%; }
-
-/*===================================================================================*/
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
 * {
   box-sizing: border-box;
@@ -64,7 +42,6 @@ body :-ms-input-placeholder {
   left: 0;
   width: 100%;
   height: 100%;
-  margin-top: -45px;
   overflow: hidden;
 }
 .wrapper.form-success .container h1 {
@@ -74,9 +51,8 @@ body :-ms-input-placeholder {
 .container {
   max-width: 600px;
   margin: 0 auto;
-  padding: 80px 0;
-  height: 400px;
   text-align: center;
+  margin-top: 10%;
 }
 .container h1 {
   font-size: 40px;
@@ -139,7 +115,7 @@ form button:hover {
 }
 .bg-bubbles {
   position: absolute;
-  top: 0;
+  top: -50px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -152,7 +128,7 @@ form button:hover {
   width: 40px;
   height: 40px;
   background-color: rgba(255, 255, 255, 0.15);
-  bottom: -160px;
+  bottom: -210px;
   -webkit-animation: square 25s infinite;
   animation: square 25s infinite;
   -webkit-transition-timing-function: linear;

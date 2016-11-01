@@ -1,3 +1,54 @@
+body {
+  overflow: hidden;
+}
+
 .bodyWeather {
   background-color: #2c3e50;
+}
+
+.mainView {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.mainView.ng-enter, .mainView.ng-leave {
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+  -moz-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+  -o-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) .5s;
+}
+
+.mainView.ng-enter { left: -100%; }
+.mainView.ng-enter.ng-enter-active { left: 0; }
+.mainView.ng-leave { left: 0; }
+.mainView.ng-leave.ng-leave-active { left: 100%; }
+
+.iconTop {
+  width: 64px;
+  height: 64px;
+  margin: -10px;
+}
+
+.topBar {
+  z-index:0;
+  position:relative;
+  text-align: right;
+}
+
+.topBar.ng-hide {
+  opacity: 0;
+}
+
+.topBar.ng-hide-remove {
+  transition: all linear 500ms;
+}
+
+.topBar.ng-hide-add {
+  transition: all linear 500ms;
 }
