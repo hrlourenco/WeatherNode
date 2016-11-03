@@ -39,6 +39,7 @@ body {
   z-index:0;
   position:relative;
   text-align: right;
+  background-color: #2c3e50;
 }
 
 .topBar.ng-hide {
@@ -51,4 +52,10 @@ body {
 
 .topBar.ng-hide-add {
   transition: all linear 500ms;
+}
+
+.brand {
+  max-width: 100%;
+  height: auto;
+  width: auto\9;
 }

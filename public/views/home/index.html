@@ -2,13 +2,25 @@
 
 <div class="container">
     <div class="information col-md-5 col-md-offset-3 col-xs-5 col-xs-offset-3">
-        <input type="text" name="praia" value="" class="col-md-12 col-xs-12 txtPraia form-control">
-        
-        <div class="logodiv"><img src="images/integration/facebook.png" alt="" width="64" height="64"></div> 
-        <div class="logodiv"><img src="images/integration/google-plus.png" alt="" width="64" height="64"></div>  
-        <div class="logodiv"><img src="images/integration/maps.png" alt="" width="64" height="64"></div>
-        <div class="logodiv"><img src="images/integration/tripadvisor.png" alt="" width="64" height="64"></div>
-        <div class="logodiv" style="background-color:#ecf0f1;"><img src="images/integration/trivago.jpg" alt="" width="56" height="36" style="margin-top: 12px;"></div>  
-        <div class="logodiv"><img src="images/integration/detail.png" alt="" width="64" height="64"></div>
+        <div>
+            <img src="images/brand/meiweather.png" alt="MEI Weather" class="brand">
+        </div>
+        <input id="autocomplete" type="text" ng-model="actualLocation.formatted_address" name="praia" class="col-md-12 col-xs-12 txtPraia form-control" />
+
+        <div class="logodiv"><img src="images/integration/facebook.png" alt="Facebook" width="64" height="64"></div> 
+        <div class="logodiv"><img src="images/integration/google-plus.png" alt="Google Plus" width="64" height="64"></div>  
+        <div class="logodiv"><img src="images/integration/maps.png" alt="Google Maps" width="64" height="64"></div>
+        <div class="logodiv"><img src="images/integration/tripadvisor.png" alt="Trip Advisor" width="64" height="64"></div>
+        <div class="logodiv" style="background-color:#ecf0f1;"><img src="images/integration/trivago.jpg" alt="Trivago" width="56" height="36" style="margin-top: 12px;"></div>  
+        <div class="logodiv"><img src="images/integration/detail.png" alt="MEI Weather Details" width="64" height="64"></div>
     </div
 </div>
+
+<script>
+    $("#autocomplete").on("dblclick", function() {
+        this.value = "Praia ";
+    })
+</script>
+
+<script src="javascripts/home.js" />
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiJO35RmsBztphqjN2q6KidJskplx6fCw&libraries=places&callback=initAutocomplete" async defer></script>
