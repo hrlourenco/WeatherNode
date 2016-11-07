@@ -35,19 +35,13 @@ router.post('/users/', function(req, res, next) {
 
 /* PUT update user . */
 router.put('/users/', function(req, res, next) {
-  User.findOneAndUpdate({"_id":req.body._id}, {
-    "username":req.body.username,
-    "passwordHash":req.body.passwordHash,
-    "nome":req.body.nome,
-    "ratingsPraias":req.body.ratingsPraias,
-    "credito":req.body.credito
-  }, function(err, user){
+  User.findOneAndUpdate({"_id":req.body._id}, req.body, function(err, user){
     if (err) return res.status(400).send('Erro ao actualizar registo');
     res.status(200).send('Actualizado com sucesso');
   })
 });
 
-/* PUT delete user . */
+/* DELETE delete user . */
 router.delete('/users/', function(req, res, next) {
   User.findOneAndUpdate({"_id":req.body._id}, {
     "enable":false
@@ -57,30 +51,95 @@ router.delete('/users/', function(req, res, next) {
   })
 });
 
+/* GET all praias. */
+router.get('/praias/', function(req, res, next) {
+  Praia.find({"enable": "true"}, function (err, ratings) {
+    if (err) return res.status(400).send('Erro de acesso');
+    res.status(200).json(ratings);
+  })
+});
+
+/* POST new praia . */
+router.post('/praias/', function(req, res, next) {
+  
+});
+
+/* PUT update praia . */
+router.put('/praias/', function(req, res, next) {
+  if(!(req.body._id == '' && req.body._id == undefined)){
+    Praia.findOneAndUpdate({"_id":req.body._id}, req.body, function(err, rating){
+      if (err) return res.status(400).send('Erro ao actualizar registo');
+      res.status(200).send('Actualizado com sucesso');
+    })
+  }else{
+    res.status(400).send('Erro ao actualizar registo');
+  };
+});
+
+/* DELETE delete rating. */
+router.delete('/praias/', function(req, res, next) {
+  Praia.findOneAndUpdate({"_id":req.body._id}, {
+    "enable":false
+  }, function(err, rating){
+    if (err) return res.status(400).send('Erro ao actualizar registo');
+    res.status(200).send('Actualizado com sucesso');
+  })
+});
+
+
+// router.post('/rate/', function(req, res, next){
+//   var cidade = req.body.cidade;
+//   var localidade = req.body.localidade;
+//   User.findOne({"_id" : req.body.userId, "enable":"true"}, function (err, user){
+//     if (err) return res.status(400).send("Utilizador não encontrado");
+//     for (var i=0; i<user.ratingsPraias.length; i++){
+//       if(user.ratingsPraias[i].cidade == req.body.cidade){
+//         return res.json(user.ratingsPraias[i]).status(200);
+//       }
+//     }
+//     res.json(user).status(200);
+//   })
+// });
+
+
 var userSchema = mongoose.Schema({
     enable: { type: Boolean, default: true },
     username: String,
     passwordHash: String,
-    nome: String,
-    ratingsPraias: [{
-      cidade: String,
-      localidade: String,
+    praias: [{
       praia: String,
+      coordenadas: {
+        Lat: Number,
+        Long: Number
+      },
       ratingGeral: Number,
       ratingCriancas: Number,
       ratingSeguranca: Number,
-      ratingEquipamento: Number
+      ratingEquipamento: Number,
+      favorita: Boolean
     }],
-    credito: Number,
-    timeStamp: { type: Date, default: Date.now }
+    credito: Number
 });
 
-var ratingsSchema = mongoose.Schema({
-  cidade: String,
-  localidade: String,
+var praiaSchema = mongoose.Schema({
+  enable: { type: Boolean, default: true },
+  praia: String,
+  coordenadas: {
+    Lat: Number,
+    Long: Number
+  },
   tempo: [{
-    data: { type: Date, default: Date.now },
-    classificação: Number,
+    tempMin: Number,
+    tempMax: Number,
+    vento: Number,
+    humidade: Number,
+    pressao: Number,
+    mensagem: String,
+    icon: Number
+  }],
+  dataTempo,
+  rating: [{
+    classificacao: Number,
     ratingGeral: Number,
     ratingGeralNum: Number,
     ratingCriancas: Number,
@@ -93,6 +152,6 @@ var ratingsSchema = mongoose.Schema({
 });
 
 var User = mongoose.model('user', userSchema);
-var Ratings = mongoose.model('ratings', ratingsSchema);
+var Praia = mongoose.model('praia', praiaSchema);
 
 module.exports = router;
