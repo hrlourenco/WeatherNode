@@ -19,7 +19,7 @@ angular.module('weatherIPCA')
         //variavel onde é guardado o valor a apresentar na textbox principal
         $scope.actualLocation = "Praia";
 
-        //método achamada quando é feito o load deste controller
+        //método chamada quando é feito o load deste controller
         $scope.$on('$routeChangeSuccess', function () {
             $scope.actualLocationFunction();
         });

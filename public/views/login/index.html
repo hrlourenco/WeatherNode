@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/stylesheets/login.css" />
-
 	<div class="wrapper">
 			<div class="container">
 				<h1>Bem vindo</h1>
@@ -9,6 +8,11 @@
 					<input type="password" placeholder="Password">
 					<button type="submit" id="login-button">Login</button>
 					<button type="button" id="cancel-button" ng-click="goView('home')">Cancel</button>
+					<br />
+					<a ng-click="goView('register')" class="novoRegisto col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
+					<div>
+						Quero registar-me!
+					</div></a>
 				</form>
 			</div>
 			<ul class="bg-bubbles">

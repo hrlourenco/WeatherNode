@@ -10,6 +10,10 @@ app.config(['$routeProvider', function($routeProvider) {
         templateUrl : 'views/login/index.html',
         controller: 'loginController'
     })
+    .when("/register", {
+        templateUrl : 'views/login/register.html',
+        controller: 'loginController'
+    })
     .when("/home", {
         templateUrl : 'views/home/index.html',
         controller: 'homeController'

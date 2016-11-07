@@ -1,3 +1,26 @@
+/*CUSTOM STYLE*/
+.novoRegisto {
+  margin-top: 10px;
+  cursor: pointer;
+  color: #CCC;
+}
+
+.novoRegisto:after {
+  display:block;
+  content: '';
+  border-bottom: solid 2px #CCC;  
+  transform: scaleX(0.05);  
+  transition: transform 250ms ease-in-out;
+  height: 10px;
+}
+.novoRegisto:hover:after { transform: scaleX(1); }
+
+.novoRegisto:hover {
+  text-decoration: none;
+  color: #5fefbf;
+}
+
+/* FOLHA DE ESTILO IMPORTADA*/
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
 * {
   box-sizing: border-box;
@@ -92,7 +115,8 @@ form input:hover {
 form input:focus {
   background-color: white;
   width: 300px;
-  color: #53e3a6;
+  color: #2c3e50;
+  font-weight: bold;
 }
 form button {
   -webkit-appearance: none;
@@ -102,7 +126,7 @@ form button {
   background-color: white;
   border: 0;
   padding: 10px 15px;
-  color: #53e3a6;
+  color: #2c3e50;
   border-radius: 3px;
   width: 123px;
   cursor: pointer;
