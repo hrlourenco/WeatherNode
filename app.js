@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongo = require('mongoose');
-var isDevMode = false; //DEV or PROD
+var isDevMode = true; //DEV or PROD
 var api = require('./routes/api');
 
 var app = express();

@@ -137,7 +137,7 @@ var praiaSchema = mongoose.Schema({
     mensagem: String,
     icon: Number
   }],
-  dataTempo,
+  dataTempo: Date,
   rating: [{
     classificacao: Number,
     ratingGeral: Number,
