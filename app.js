@@ -21,12 +21,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'node_modules/angular')));
-app.use(express.static(path.join(__dirname, 'node_modules/angular-route')));
-app.use(express.static(path.join(__dirname, 'node_modules/angular-animate')));
-app.use(express.static(path.join(__dirname, 'node_modules/bootstrap')));
-app.use(express.static(path.join(__dirname, 'node_modules/js-sha256')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use('/api/v1', api);
 
