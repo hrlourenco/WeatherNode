@@ -202,6 +202,12 @@ router.post('/praias/', function(req, res, next) {
               "mensagem":weather.daily.data[4].summary,
               "icon":weather.daily.data[4].icon}]                   //Previsão +5 dia]
           });
+          for (var i in praias) {
+            var local = new where.Point(praias[i].coordenadas.lat, praias[i].coordenadas.long)
+            if (praiaLocation.distanceTo(local)<5 && !newPraia._id.equals(praias[i]._id)){
+              proximas.push(praias[i]);
+            }
+          }
           newPraia.save(function(err, praia){
             if (err) return res.status(400).send('Erro ao inserir registo');
             return res.status(200).json({"praia":praia, "proximas": proximas});
