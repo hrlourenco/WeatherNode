@@ -37,7 +37,7 @@ router.post('/users/', function(req, res, next) {
 
 /* PUT update user . */
 router.put('/users/', function(req, res, next) {
-  User.findOneAndUpdate({"_id":req.body._id}, req.body, function(err, user){
+  User.findOneAndUpdate({"_id":req.body._id}, {"username": req.body.username, "passwordHash": req.body.passwordHash}, function(err, user){
     if (err) return res.status(400).send('Erro ao actualizar registo');
     res.status(200).send('Actualizado com sucesso');
   })
@@ -63,15 +63,84 @@ router.get('/praias/', function(req, res, next) {
 
 /* POST new praia . */
 router.post('/praias/', function(req, res, next) {
-  Praia.findOne({"Praia":req.body.praia}, function(err, praia){
+  Praia.findOne({"praia":req.body.praia}, function(err, praia){
     if(err) return res.status(400).send('Erro ao carregar praia');
-    if (praia && (Date.now - praia.dataTempo) > 4*60*60*1000){
-      res.send(Date.now - praia.dataTempo);
+    if (praia){
+      var hora = 10000; //60*60*1000;
+      var currDt = new Date();
+      var tempDt = new Date(praia.dataTempo.toISOString());
+      
+      var diffHoras = (currDt-tempDt)/hora;
+      
+      if (diffHoras>4){
+        forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
+          if(err) return res.status(400).send('Erro ao carregar forecast');
+
+          praia.dataTempo = Date.now();
+          praia.tempo = [{
+              "tempMin":weather.currently.temperature,
+              "tempMax":weather.currently.temperature,
+              "vento":weather.currently.windSpeed,
+              "humidade":weather.currently.humidity,
+              "pressao":weather.currently.pressure,
+              "mensagem":weather.currently.summary,
+              "icon":weather.currently.icon},                   //Tempo actual
+              {
+              "tempMin":weather.daily.data[0].temperatureMin,
+              "tempMax":weather.daily.data[0].temperatureMax,
+              "vento":weather.daily.data[0].windSpeed,
+              "humidade":weather.daily.data[0].cumidity,
+              "pressao":weather.daily.data[0].pressure,
+              "mensagem":weather.daily.data[0].summary,
+              "icon":weather.daily.data[0].icon},                   //Previsão +1 dia
+              {
+              "tempMin":weather.daily.data[1].temperatureMin,
+              "tempMax":weather.daily.data[1].temperatureMax,
+              "vento":weather.daily.data[1].windSpeed,
+              "humidade":weather.daily.data[1].humidity,
+              "pressao":weather.daily.data[1].pressure,
+              "mensagem":weather.daily.data[1].summary,
+              "icon":weather.daily.data[1].icon},                   //Previsão +2 dia
+              {
+              "tempMin":weather.daily.data[2].temperatureMin,
+              "tempMax":weather.daily.data[2].temperatureMax,
+              "vento":weather.daily.data[2].windSpeed,
+              "humidade":weather.daily.data[2].humidity,
+              "pressao":weather.daily.data[2].pressure,
+              "mensagem":weather.daily.data[2].summary,
+              "icon":weather.daily.data[2].icon},                   //Previsão +3 dia
+              {
+              "tempMin":weather.daily.data[3].temperatureMin,
+              "tempMax":weather.daily.data[3].temperatureMax,
+              "vento":weather.daily.data[3].windSpeed,
+              "humidade":weather.daily.data[3].humidity,
+              "pressao":weather.daily.data[3].pressure,
+              "mensagem":weather.daily.data[3].summary,
+              "icon":weather.daily.data[3].icon},                   //Previsão +4 dia
+              {
+              "tempMin":weather.daily.data[4].temperatureMin,
+              "tempMax":weather.daily.data[4].temperatureMax,
+              "vento":weather.daily.data[4].windSpeed,
+              "humidade":weather.daily.data[4].humidity,
+              "pressao":weather.daily.data[4].pressure,
+              "mensagem":weather.daily.data[4].summary,
+              "icon":weather.daily.data[4].icon}];                   //Previsão +5 dia
+
+
+          res.status(200).json(praia);
+          Praia.findOneAndUpdate({"_id":praia._id}, praia, function(err, resPraia){
+            if (err) return res.status(400).send('Erro ao actualizar registo');
+            res.status(200).json(resPraia);
+          });
+        });
+      }else{
+        res.status(200).json(praia);
+      }
     }else{
       forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
         if(err) return res.status(400).send('Erro ao carregar forecast');
         var newPraia = new Praia({
-          "praia":req.body.praia, 
+          "praia":req.body.praia,
           "coordenadas":{
             "lat":req.body.coordenadas.lat,
             "long":req.body.coordenadas.long
@@ -215,7 +284,7 @@ var praiaSchema = mongoose.Schema({
     mensagem: String,
     icon: String
   }],
-  dataTempo: { type: Date, default: Date.now },
+  dataTempo: { type: Date, default: Date },
   rating: [{
     classificacao: Number,
     ratingGeral: Number,
