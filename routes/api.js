@@ -67,9 +67,9 @@ router.post('/praias/', function(req, res, next) {
   Praia.findOne({"praia":req.body.praia, "enable":"true"}, function(err, praia){
     var praiaLocation = new where.Point(req.body.coordenadas.lat, req.body.coordenadas.long);
     Praia.find({"enable":"true"}, function(err, praias){
+      var proximas = [];
       if(err) return res.status(400).send('Erro ao carregar praia');
       if (praia){
-        var proximas = [];
         for (var i in praias) {
           var local = new where.Point(praias[i].coordenadas.lat, praias[i].coordenadas.long)
           if (praiaLocation.distanceTo(local)<5 && !praia._id.equals(praias[i]._id)){
