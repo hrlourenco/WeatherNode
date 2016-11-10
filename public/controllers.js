@@ -3,7 +3,13 @@ angular.module('weatherIPCA')
         $rootScope.hideTopBar = true;
         $scope.goView = function(view) {
             $location.path(view);
-        }
+        };
+        $scope.login = function() {
+            $http({
+                method: GET,
+                url:''
+            })
+        };
     });
 
 angular.module('weatherIPCA')
