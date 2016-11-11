@@ -15,8 +15,17 @@ router.get('/', function(req, res, next) {
 router.get('/users/:stringHash/', function(req, res, next) {
   User.findOne({'passwordHash': req.params.stringHash}, function (err, user) {
     if (err) return res.status(403).send('Acesso negado');
-    if (!user.enable) return res.status(403).send('Acesso negado'); 
-    return res.status(200).json(user);
+    if (user) {
+      if (!user.enable) {
+        return res.status(404).send('User não disponivel');
+      }
+      else {
+        res.status(200).json(user);
+      }
+    }
+    else {
+      res.status(404).send('User não disponivel');
+    }
   })
 });
 
