@@ -1,4 +1,4 @@
-var app = angular.module('weatherIPCA', ['ngRoute', 'ngAnimate']);
+var app = angular.module('weatherIPCA', ['ngRoute', 'ngAnimate','mdo-angular-cryptography']);
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider

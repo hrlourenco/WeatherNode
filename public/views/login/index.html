@@ -4,9 +4,9 @@
 				<h1>Bem vindo</h1>
 				
 				<form class="form">
-					<input type="text" placeholder="Username">
-					<input type="password" placeholder="Password">
-					<button type="submit" id="login-button">Login</button>
+					<input type="text" placeholder="Username" ng-model="dataLogin.username">
+					<input type="password" placeholder="Password" ng-model="dataLogin.password">
+					<button type="submit" id="login-button" ng-click="loginSubmit()">Login</button>
 					<button type="button" id="cancel-button" ng-click="goView('home')">Cancel</button>
 					<br />
 					<a ng-click="goView('register')" class="novoRegisto col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">

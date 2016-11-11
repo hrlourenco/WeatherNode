@@ -1,18 +1,4 @@
 angular.module('weatherIPCA')
-    .controller('loginController', function($scope, $location, $rootScope, $http) {
-        $rootScope.hideTopBar = true;
-        $scope.goView = function(view) {
-            $location.path(view);
-        };
-        $scope.login = function() {
-            $http({
-                method: GET,
-                url:''
-            })
-        };
-    });
-
-angular.module('weatherIPCA')
     .controller('homeController', function($scope, $location, $rootScope, $http, $window) {
         //topbar na ngView
         $rootScope.hideTopBar = false;
