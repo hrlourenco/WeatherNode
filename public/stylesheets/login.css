@@ -20,6 +20,18 @@
   color: #5fefbf;
 }
 
+form .errorAlert {
+  margin-left: 35px;
+}
+.errorAlert {
+  margin-top:10px;
+  margin-bottom: 0px;
+  width: 250px;
+}
+
+div.alert-success {
+  display: table;
+}
 /* FOLHA DE ESTILO IMPORTADA*/
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
 * {

@@ -1,5 +1,5 @@
 angular.module('weatherIPCA')
-    .controller('homeController', function($scope, $location, $rootScope, $http, $window) {
+    .controller('homeController', ['$scope', '$location', '$rootScope', '$http', '$window', function($scope, $location, $rootScope, $http, $window) {
         //topbar na ngView
         $rootScope.hideTopBar = false;
 
@@ -60,5 +60,5 @@ angular.module('weatherIPCA')
             $window.open('https://www.airbnb.pt/s/' + $scope.user.nome, '_blank');
         }
         
-    });
+    }]);
 

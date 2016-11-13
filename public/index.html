@@ -8,8 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
   </head>
-  <body class="bodyWeather">
-
+  <body class="bodyWeather" ng-controller="mainController">
     <div ng-view class="mainView" id="mainView"></div>
     
     <div ng-controller="homeController" class="topBar" ng-hide="hideTopBar">
@@ -47,15 +46,21 @@
 
 
 
-    <script src="/angular/angular.js"></script>
-    <script src="/angular-route/angular-route.js"></script>
-    <script src="/angular-animate/angular-animate.js"></script>
-    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/javascripts/crypt/aes.js"></script>
-    <script src="/javascripts/crypt/mdo-angular-cryptography.js"></script>
+    <script src="angular/angular.min.js"></script>
+    <script src="angular-route/angular-route.min.js"></script>
+    <script src="angular-animate/angular-animate.min.js"></script>
+    <script src="angular-cookies/angular-cookies.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+
     <script src="routes.js"></script>
     <script src="controllers/loginController.js"></script>
     <script src="controllers/homeController.js"></script>
-    <script src="javascripts/login.js"></script>
+    <script src="controllers/mainController.js"></script>
+    <script src="services/loginService.js"></script>
+    <script src="directives/general.js"></script>
+
+    <script src="javascripts/crypt/aes.js"></script>
+    <script src="javascripts/crypt/mdo-angular-cryptography.js"></script>
+    
   </body>
 </html>
