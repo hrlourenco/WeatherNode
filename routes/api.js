@@ -1,10 +1,11 @@
 var express = require('express');
-var mongoose = require('mongoose');
 var router = express.Router();
 var mongoose = require('mongoose');
 var where = require('where');
 var Forecast = require('forecast');
 var GooglePlaces = require('node-googleplaces');
+var multer = require('multer');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -14,33 +15,37 @@ router.get('/', function(req, res, next) {
 /* GET login. */
 router.get('/users/:stringHash/', function(req, res, next) {
   User.findOne({'passwordHash': req.params.stringHash}, function (err, user) {
-    if (err) return res.status(403).send('Acesso negado');
-    if (!user) return res.status(403).send('Acesso negado');
-    if (!user.enable) return res.status(403).send('Acesso negado'); 
+    if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+    if (!user) return res.status(404).json({"httpCodeResponse": 404, "internalErrorCode": 101, "Message": "Utilizador não encontrado"});
+    if (!user.enable) return res.status(403).json({"httpCodeResponse": 404, "internalErrorCode": 102, "Message": "Acesso negado"});
     return res.status(200).json(user);
   })
 });
 
 /* POST new user . */
 router.post('/users/', function(req, res, next) {
-  if(!(req.body.username == '' && req.body.username == undefined)){
-    var aux = new User(req.body);
-    aux.save(function(err, user){
-      if (!err){
-        return res.status(200).json(user);
-      }else{
-        return res.status(400).send('Erro ao inserir registo');
-      }
-    });
-  }else{
-    return res.status(400).send('Erro ao inserir registo');
-  };
+  User.findOne({"username":req.body.username}, function(err, user){
+    if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+    if(user) return res.status(400).json({"httpCodeResponse": 400, "internalErrorCode": 103, "Message": "Utilizador já existente"});
+    if(!(req.body.username == '' && req.body.username == undefined)){
+      var aux = new User(req.body);
+      aux.save(function(err, user){
+        if (!err){
+          return res.status(200).json(user);
+        }else{
+          return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+        }
+      });
+    }else{
+      return res.status(400).json({"httpCodeResponse": 400, "internalErrorCode": 104, "Message": "Dados inválidos"});
+    };
+  })
 });
 
 /* PUT update user . */
 router.put('/users/', function(req, res, next) {
   User.findOneAndUpdate({"_id":req.body._id}, {"username": req.body.username, "passwordHash": req.body.passwordHash}, function(err, user){
-    if (err) return res.status(400).send('Erro ao actualizar registo');
+    if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
     return res.status(200).send('Actualizado com sucesso');
   })
 });
@@ -50,7 +55,7 @@ router.delete('/users/', function(req, res, next) {
   User.findOneAndUpdate({"_id":req.body._id}, {
     "enable":false
   }, function(err, user){
-    if (err) return res.status(400).send('Erro ao actualizar registo');
+    if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
     return res.status(200).send('Actualizado com sucesso');
   })
 });
@@ -58,7 +63,7 @@ router.delete('/users/', function(req, res, next) {
 /* GET all praias. */
 router.get('/praias/', function(req, res, next) {
   Praia.find({"enable": "true"}, function (err, praias) {
-    if (err) return res.status(400).send('Erro de acesso');
+    if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
     return res.status(200).json(praias);
   })
 });
@@ -71,7 +76,7 @@ router.post('/praias/', function(req, res, next) {
       if(user){
         userFound = true;
         User.findOneAndUpdate({"_id":req.body.userId}, {"credito":user.credito-1}, function(err, user){
-          if (err) return res.status(400).send('Erro de acesso');
+          if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
         })
       }
     })
@@ -80,7 +85,7 @@ router.post('/praias/', function(req, res, next) {
     var praiaLocation = new where.Point(req.body.coordenadas.lat, req.body.coordenadas.long);
     Praia.find({"enable":"true"}, function(err, praias){
       var proximas = [];
-      if(err) return res.status(400).send('Erro ao carregar praia');
+      if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
       if (praia){
         for (var i in praias) {
           var local = new where.Point(praias[i].coordenadas.lat, praias[i].coordenadas.long)
@@ -99,7 +104,7 @@ router.post('/praias/', function(req, res, next) {
         
         if (diffHoras>4){
           forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
-            if(err) return res.status(400).send('Erro ao carregar forecast');
+            if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
 
             praia.dataTempo = Date.now();
             praia.tempo = [{
@@ -152,7 +157,7 @@ router.post('/praias/', function(req, res, next) {
                 "icon":weather.daily.data[4].icon}];                   //Previsão +5 dia
 
             Praia.findOneAndUpdate({"_id":praia._id}, praia, function(err, resPraia){
-              if (err) return res.status(400).send('Erro ao actualizar registo');
+              if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
               if(!userFound){
                 resPraia.rating=[];
               }
@@ -174,7 +179,7 @@ router.post('/praias/', function(req, res, next) {
         places.nearbySearch(params, function(err, response) {
           if (!err && response) {
             forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
-              if(err) return res.status(400).send('Erro ao carregar forecast');
+              if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
               var newPraia = new Praia({
                 "praia":req.body.praia,
                 "imagem":"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + response.body.results[0].photos[0].photo_reference + "&key=AIzaSyBITKEHhyk2e-LG-XA59DfpxxFqoDmzqm4",
@@ -241,7 +246,7 @@ router.post('/praias/', function(req, res, next) {
                 }
               }
               newPraia.save(function(err, praia){
-                if (err) return res.status(400).send('Erro ao inserir registo');
+                if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
                 return res.status(200).json({"praia":praia, "proximas": proximas});
               });
             });
@@ -256,23 +261,39 @@ router.post('/rate/', function(req, res, next){
   var auxPraia = {};
   var auxUser = {};
   User.findOne({"_id":req.body.userId, "enable":"true"}, function (err, user){
-    if (err) return res.status(400).send("Utilizador não encontrado");
-    if (!user) return res.status(400).send("Utilizador não encontrado");
+    if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+    if (!user) return res.status(400).json({"httpCodeResponse": 404, "internalErrorCode": 101, "Message": "Utilizador não encontrado"});
 
     var hora = 60*60*1000;
     var currDt = new Date();
-    var tempDt = new Date(praia.dataTempo.toISOString());
+    var tempDt = new Date(user.ultimoRate.toISOString());
     
     var diffHoras = (currDt-tempDt)/hora;
     
     if (diffHoras>4){
       auxUser = user;
-      var bonus = 3;
-      if(req.body.img){
-        bonus = 5;
-      }
       Praia.findOne({"_id":req.body.praiaId, "enable":"true"}, function (err, praia){
         auxPraia = praia;
+        var bonus = 3;
+        
+        if(req.body.img){
+
+          var storage = multer.diskStorage({
+            destination: function (req, file, callback) {
+              callback(null, './uploads');
+            },
+            filename: function (req, file, callback) {
+              callback(null, file.fieldname + '-' + Date.now());
+            }
+          });
+          var upload = multer({ storage : storage}).single('img');
+
+          upload(req,res,function(err) {
+            if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+            res.end("File is uploaded");
+          });
+          bonus = 5;
+        }
         var userPraiaFound = false;
         if(praia.rating.ratingGeral){
           if(user.praias.length > 0){
@@ -354,9 +375,9 @@ router.post('/rate/', function(req, res, next){
         }
         auxUser.credito = auxUser.credito + bonus;
         User.findOneAndUpdate({"_id":auxUser._id}, auxUser, function(err, userUpdated){
-          if(err) return res.status(400).send('Erro ao atualizar');
+          if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
           Praia.findOneAndUpdate({"_id":auxPraia._id}, auxPraia, function(er, praiaUpdated){
-            if(err) return res.status(400).send('Erro ao atualizar');
+            if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
               res.json({auxUser, auxPraia});
           })
         })
@@ -365,9 +386,18 @@ router.post('/rate/', function(req, res, next){
   })
 });
 
-router.post('/teste/', function(req, res, next){
-  Praia.findOne({"tempMin": { "$in":[11.69]}}, function (err, user){
-    res.json(user);
+router.post('/praias/fav/', function(req, res, next){
+  User.findOne({"_id":req.body.userId}, function (err, user){
+    if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+    for(var i=0; i<user.praias.length; i++){
+      if(user.praias[i]._id == req.body.praiaUserId){
+        user.praias[i].favorita = req.body.favorita;
+      }
+    }
+    User.findOneAndUpdate({"_id":req.body.userId}, user, function(err, userUpdated){
+       if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+       res.json(user);
+    })
   })
 });
 
@@ -377,6 +407,7 @@ var userSchema = mongoose.Schema({
   username: String,
   passwordHash: String,
   praias: [{
+    favorita: Boolean,
     praia: String,
     coordenadas: {
       lat: Number,
@@ -386,9 +417,9 @@ var userSchema = mongoose.Schema({
     ratingCriancas: Number,
     ratingSeguranca: Number,
     ratingEquipamento: Number,
-    favorita: Boolean
+    favorita: { type: Boolean, default: false }
   }],
-  ultimoRate: Date,
+  ultimoRate: { type: Date, default: new Date("2000-01-01T00:00:00.000Z") },
   credito: { type: Number, default: 10 }
 });
 
