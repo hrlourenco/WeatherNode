@@ -8,6 +8,8 @@ var mongo = require('mongoose');
 var isDevMode = false; //DEV or PROD
 var api = require('./routes/api');
 var cors = require('cors')
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
@@ -24,10 +26,18 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(require('express-session')({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 app.use('/api/v1', api);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
