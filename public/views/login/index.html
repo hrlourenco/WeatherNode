@@ -4,11 +4,19 @@
 				<h1>Bem vindo</h1>
 				
 				<form class="form">
-					<input type="text" placeholder="Username" ng-model="dataLogin.username">
-					<input type="password" placeholder="Password" ng-model="dataLogin.password">
+					<input type="text" placeholder="Username" ng-model="credentials.username">
+					<input type="password" placeholder="Password" ng-model="credentials.password">
 					<button type="submit" id="login-button" ng-click="loginSubmit()">Login</button>
 					<button type="button" id="cancel-button" ng-click="goView('home')">Cancel</button>
-					<br />
+					<div class="alert alert-danger errorAlert" ng-show="errorMessage.error">
+						<span>{{errorMessage.message}}</span>
+					</div>
+					<div class="alert alert-success errorAlert" ng-show="errorMessage.success">
+						<span>{{errorMessage.message}}</span>
+						<br>
+						<button type="button" class="btn btn-default btn-xs col-sm-5" ng-click="createCookie(true)">Sim</button>
+						<button type="button" class="btn btn-default btn-xs col-sm-offset-2 col-sm-5" ng-click="createCookie(false)">Não</button>
+					</div>
 					<a ng-click="goView('register')" class="novoRegisto col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
 					<div>
 						Quero registar-me!

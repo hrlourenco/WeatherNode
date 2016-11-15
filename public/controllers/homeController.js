@@ -1,12 +1,7 @@
 angular.module('weatherIPCA')
-    .controller('homeController', function($scope, $location, $rootScope, $http, $window) {
+    .controller('homeController', ['$scope', '$location', '$rootScope', '$http', '$window', function($scope, $location, $rootScope, $http, $window) {
         //topbar na ngView
         $rootScope.hideTopBar = false;
-
-        //método responsável pelo redirecionamento
-        $scope.goView = function(view) {
-            $location.path(view);
-        }
 
         //variavel onde é guardado o valor a apresentar na textbox principal
         $scope.actualLocation = "Praia";
@@ -60,5 +55,5 @@ angular.module('weatherIPCA')
             $window.open('https://www.airbnb.pt/s/' + $scope.user.nome, '_blank');
         }
         
-    });
+    }]);
 
