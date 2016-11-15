@@ -5,6 +5,7 @@ angular.module('weatherIPCA')
             //auto login
             var val = $cookies.getObject(Login.cookieName);
             if(val != null) {
+                Login.userId = val.userId;
                 Login.isLogged = true;
                 Login.username = val.username;
                 Login.role = val.role;

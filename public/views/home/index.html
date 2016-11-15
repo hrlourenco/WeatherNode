@@ -5,16 +5,16 @@
         <div>
             <img src="images/brand/meiweather.png" alt="MEI Weather" class="brand">
         </div>
-        <input id="autocomplete" type="text" ng-model="actualLocation.formatted_address" name="praia" class="col-md-12 col-xs-12 txtPraia form-control" />
+        <input id="autocomplete" type="text" ng-model="actualLocation" name="praia" class="col-md-12 col-xs-12 txtPraia form-control" />
         <input type="hidden" id="txtNome" ng-model="user.nome" />
         <input type="hidden" id="txtLat" ng-model="user.lat" />
         <input type="hidden" id="txtLng" ng-model="user.lng" />
 
         <div class="logodiv"><img src="images/integration/facebook.png" alt="Facebook" width="64" height="64"></div> 
-        <div class="logodiv" ng-click="airbnb()"><img src="images/integration/google-plus.png" alt="Google Plus" width="64" height="64"></div>  
-        <div class="logodiv" data-toggle="modal" data-target="#modalMaps"><img src="images/integration/maps.png" alt="Google Maps" width="64" height="64"></div>
+        <div class="logodiv" ng-click="airbnb()"><img src="images/integration/airbnb.png" alt="airbnb" width="64" height="64"></div>  
         <div class="logodiv"><img src="images/integration/tripadvisor.png" alt="Trip Advisor" width="64" height="64"></div>
-        <div class="logodiv" style="background-color:#ecf0f1;"><img src="images/integration/trivago.jpg" alt="Trivago" width="56" height="36" style="margin-top: 12px;"></div>  
+        <div class="logodiv" data-toggle="modal" data-target="#modalMaps"><img src="images/integration/maps.png" alt="Google Maps" width="64" height="64"></div>
+        <div class="logodiv" style="background-color:#ecf0f1;"><img src="images/integration/camera.png" alt="Galery" width="64" height="64"></div>  
         <div class="logodiv"><img src="images/integration/detail.png" alt="MEI Weather Details" width="64" height="64"></div>
         <!--https://www.airbnb.pt/s/<NOME DA CIDADE>-->
     </div>
@@ -30,8 +30,8 @@
       </div>
       <div class="modal-body" id="modalMapsMap">
           <div class="container-fluid">
-              <div class="row"
-        <div id="map" class="map"></div></div></div>
+            <div id="map" class="map"></div>
+          </div>
       </div>
     </div>
   </div>

@@ -4,17 +4,20 @@ angular.module('weatherIPCA')
         return {
             apiURL: 'https://weatheripca.herokuapp.com/api/v1',
             isLogged: false,
+            userId: '',
             username: '',
             role: '',
             defaultRole: 'general',
             cookieName: 'db0f4826',
             cookieSchema: {
+                userId: '',
                 username: '',
                 role:''
             },
             logout: function() {
                 apiURL = 'https://weatheripca.herokuapp.com/api/v1',
                 isLogged = false,
+                userId = '',
                 username = '',
                 role = '',
                 defaultRole = 'general',
@@ -44,5 +47,6 @@ angular.module('weatherIPCA')
             }
         }
     });
+
 
     //http://nadeemkhedr.com/how-to-do-authorization-and-role-based-permissions-in-angularjs/

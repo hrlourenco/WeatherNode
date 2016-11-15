@@ -4,7 +4,7 @@ angular.module('weatherIPCA')
             $rootScope.hideTopBar = true;
 
             $scope.errorMessage = { error: false, success: false, message: ''};
-            $scope.credentials = { username: User.username, password: ''};
+            $scope.credentials = { userId: '', username: User.username, password: ''};
 
             $scope.loginSubmit = function() {
                 //var hash = $crypto.encrypt($scope.credentials.username + $scope.credentials.password, 'PalavraReservadaDeEncriptacaoFromServer');
@@ -14,21 +14,25 @@ angular.module('weatherIPCA')
                     method: 'GET',
                     url: User.apiURL + '/users/' + hash,
                 }).success(function (response) {
+                    User.userId = response._id;
                     User.username = $scope.credentials.username;
                     User.isLogged = true;
-                    User.role = User.defaultRole; /* #TODO# este campo deverá ser injectao a partir da base de dados */
+                    User.role = User.defaultRole;
+                    User.cookieSchema.userId = response._id;
                     User.cookieSchema.role = User.defaultRole;
                     User.cookieSchema.username = $scope.credentials.username;
                     $scope.errorMessage.success = true;
                     $scope.errorMessage.error = false;
                     $scope.errorMessage.message = 'Deseja gravar os seus dados?';
                 }).error(function (error, status) {
+                    User.userId = '';
                     User.username = '';
                     User.isLogged = false;
                     User.role = User.defaultRole;
+                    User.cookieSchema.userId ='';
+                    User.cookieSchema.username = '';
                     User.cookieSchema.role = User.defaultRole;
                     $cookies.remove(User.cookieName);
-                    User.cookieSchema.username = '';
                     $scope.errorMessage.success = false;
                     $scope.errorMessage.error = true;
                     $scope.errorMessage.message = 'Credenciais inválidas!';

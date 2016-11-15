@@ -9,48 +9,98 @@
 
   </head>
   <body class="bodyWeather" ng-controller="mainController">
-    <div ng-view class="mainView" id="mainView"></div>
-    
-    <div ng-controller="homeController" class="topBar" ng-hide="hideTopBar">
-      <nav class="navbar navbar-default">
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
+    <div id="main">
+      <div ng-view class="mainView" id="mainView"></div>
+      
+      <div ng-controller="homeController" class="topBar" ng-hide="hideTopBar">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                <li ng-show="!isLogged">
+                  <a class="btn" ng-click="goView('login')">
+                    <img src="images/general/user.png" alt="Login" class="iconTop">
+                  </a>
+                </li>
+                <li ng-show="isLogged">
+                  <a class="btn" ng-click="logout()">
+                    <img src="images/general/logout.png" alt="Logout" class="iconTop">
+                  </a>
+                </li>
+                <li validate-permission="admin,general" ng-show="isLogged">
+                  <a class="btn" ng-click="goView('login')">
+                    <img src="images/general/settings.png" alt="User Account" class="iconTop">
+                  </a>
+                </li>
+                <li validate-permission="admin,general" ng-show="isLogged" onclick="openFavorites()">
+                  <a class="btn">
+                    <img src="images/general/favorite.png" alt="Favorites" class="iconTop">
+                  </a>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+      </div>
+
+      <div class="favorites" id="myFavorites">
+        <div>
+          <span class="headText">Favoritos</span>
+          <a href="javascript:void(0)" class="closeFavorites" onclick="closeFavorites()">&times;</a><br>
+        </div>
+        <div class="card">
+          <div class="cardImg">
+            <img src="http://www.sulaovivo.com.br/img/269780/natureza-praia-mar-palmeiras-wallpaper.jpg">
           </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-right">
-              <li ng-show="!isLogged">
-                <a class="btn" ng-click="goView('login')">
-                  <img src="images/general/user.png" alt="Login" class="iconTop">
-                </a>
-              </li>
-              <li ng-show="isLogged">
-                <a class="btn" ng-click="logout()">
-                  <img src="images/general/logout.png" alt="Logout" class="iconTop">
-                </a>
-              </li>
-              <li validate-permission="admin,general" ng-show="isLogged">
-                <a class="btn" ng-click="goView('login')">
-                  <img src="images/general/settings.png" alt="User Account" class="iconTop">
-                </a>
-              </li>
-              <li validate-permission="admin,general" ng-show="isLogged">
-                <a class="btn" ng-click="goView('login')">
-                  <img src="images/general/favorite.png" alt="Favorites" class="iconTop">
-                </a>
-              </li>
-            </ul>
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav>
+          <div class="cardContainer">
+            <div class="nomePraia">Praia da Rocha</div> 
+            <div class="temperatura">32º</div> 
+            <div class="rating">4.3</div> 
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardImg">
+            <img src="http://www.sulaovivo.com.br/img/269780/natureza-praia-mar-palmeiras-wallpaper.jpg">
+          </div>
+          <div class="cardContainer">
+            <div class="nomePraia">Praia da Rocha</div> 
+            <div class="temperatura">32º</div> 
+            <div class="rating">4.3</div> 
+          </div>
+        </div>
+        <div class="card">
+          <div class="cardImg">
+            <img src="http://www.sulaovivo.com.br/img/269780/natureza-praia-mar-palmeiras-wallpaper.jpg">
+          </div>
+          <div class="cardContainer">
+            <div class="nomePraia">Praia da Rocha</div> 
+            <div class="temperatura">32º</div> 
+            <div class="rating">4.3</div> 
+          </div>
+        </div>
+        <div class="card">
+          <div class="cardImg">
+            <img src="http://www.sulaovivo.com.br/img/269780/natureza-praia-mar-palmeiras-wallpaper.jpg">
+          </div>
+          <div class="cardContainer">
+            <div class="nomePraia">Praia da Rocha</div> 
+            <div class="temperatura">32º</div> 
+            <div class="rating">4.3</div> 
+          </div>
+        </div>
+
+
+      </div>
     </div>
-
-
 
     <script src="angular/angular.min.js"></script>
     <script src="angular-route/angular-route.min.js"></script>
@@ -65,6 +115,7 @@
     <script src="services/loginService.js"></script>
     <script src="directives/general.js"></script>
 
+    <script src="javascripts/main.js"></script>
     <script src="javascripts/crypt/aes.js"></script>
     <script src="javascripts/crypt/mdo-angular-cryptography.js"></script>
     

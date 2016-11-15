@@ -17,10 +17,11 @@
 						<button type="button" class="btn btn-default btn-xs col-sm-5" ng-click="createCookie(true)">Sim</button>
 						<button type="button" class="btn btn-default btn-xs col-sm-offset-2 col-sm-5" ng-click="createCookie(false)">Não</button>
 					</div>
-					<a ng-click="goView('register')" class="novoRegisto col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3">
-					<div>
-						Quero registar-me!
-					</div></a>
+					<a ng-click="goView('register')" class="novoRegisto col-md-6 col-md-offset-3 col-xs-6 col-xs-offset-3" ng-hide="isLogged">
+						<div>
+							Quero registar-me!
+						</div>
+					</a>
 				</form>
 			</div>
 			<ul class="bg-bubbles">
