@@ -1,25 +1,37 @@
 var app = angular.module('weatherIPCA', ['ngRoute', 'ngAnimate','mdo-angular-cryptography','ngCookies']);
 
+//se não for inicializada a propriedade permission, deixa aceder sem login
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : 'views/home',
-        controller: 'homeController'
+        controller: 'homeController',
+        permission: 'general' //controlar as roles, neste caso admitimos apenas 2 casos, acessível ou não, com prespectiva de criar várias roles
     })
     .when("/login", {
         templateUrl : 'views/login',
-        controller: 'loginController',
-        roleAccess: 'all'  //controlar as roles, neste caso admitimos apenas 2 casos, acessível ou não, com prespectiva de criar várias roles
+        controller: 'loginController'
     })
     .when("/register", {
         templateUrl : 'views/login/register.html',
-        controller: 'loginController'
+        controller: 'loginController',
+        permission: 'general'
     })
     .when("/home", {
         templateUrl : 'views/home',
-        controller: 'homeController'
+        controller: 'homeController',
+        permission: 'general'
     })
     .otherwise({
-        redirect: 'views/home'
+        redirect: 'views/home',
+        permission: 'general'
     })
 }]);
+
+//#TODO# lista de permissoes, deve ser obtida do servidor
+app.run(function(Permissions) {
+    var list = [];
+    list.push("general");
+    list.push("admin");
+    Permissions.setPermission(list);
+});

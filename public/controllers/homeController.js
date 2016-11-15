@@ -3,11 +3,6 @@ angular.module('weatherIPCA')
         //topbar na ngView
         $rootScope.hideTopBar = false;
 
-        //método responsável pelo redirecionamento
-        $scope.goView = function(view) {
-            $location.path(view);
-        }
-
         //variavel onde é guardado o valor a apresentar na textbox principal
         $scope.actualLocation = "Praia";
 

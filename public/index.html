@@ -2,7 +2,7 @@
 <!--http://www.flaticon.com/free-icon/add_189689-->
 <html ng-app="weatherIPCA">
   <head>
-    <title>WeatherApp</title>
+    <title>MEI Weather</title>
     <link rel='stylesheet' href='stylesheets/style.css' />
     <link rel="stylesheet" href="stylesheets/external_css/bootstrap-theme.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -19,23 +19,29 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
             </button>
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-              <li>
+              <li ng-show="!isLogged">
                 <a class="btn" ng-click="goView('login')">
-                  <img src="images/general/user.png" alt="User Account" class="iconTop">
+                  <img src="images/general/user.png" alt="Login" class="iconTop">
                 </a>
               </li>
-              <li>
+              <li ng-show="isLogged">
+                <a class="btn" ng-click="logout()">
+                  <img src="images/general/logout.png" alt="Logout" class="iconTop">
+                </a>
+              </li>
+              <li validate-permission="admin,general" ng-show="isLogged">
                 <a class="btn" ng-click="goView('login')">
                   <img src="images/general/settings.png" alt="User Account" class="iconTop">
                 </a>
               </li>
-              <li>
+              <li validate-permission="admin,general" ng-show="isLogged">
                 <a class="btn" ng-click="goView('login')">
-                  <img src="images/general/favorite.png" alt="User Account" class="iconTop">
+                  <img src="images/general/favorite.png" alt="Favorites" class="iconTop">
                 </a>
               </li>
             </ul>
