@@ -27,6 +27,17 @@ angular.module('weatherIPCA')
                         $scope.user.nome = response.data.results[0].address_components[0].short_name;
                         $scope.user.lat = position.coords.latitude;
                         $scope.user.lng = position.coords.longitude;
+
+                        var dataPost = {
+                            "praia": $scope.user.nome,
+                            "coordenadas": {
+                                "lat":$scope.user.lat,
+                                "long":$scope.user.lng
+                            }
+                        }
+                        //extrair da API os dados da praia
+                        $scope.getPraiaFromAPI(dataPost);
+
                     }, function errorCallback(response) {
                         $scope.actualLocation = "Praia"
                     });
