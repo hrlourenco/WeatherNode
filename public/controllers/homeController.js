@@ -5,7 +5,7 @@ angular.module('weatherIPCA')
         $rootScope.hideTopBar = false;
 
         //variavel onde é guardado o valor a apresentar na textbox principal
-        $scope.actualLocation = "Praia";
+        $scope.actualLocation = "Praia ";
 
         //método chamada quando é feito o load deste controller
         $scope.$on('$routeChangeSuccess', function () {
@@ -13,7 +13,7 @@ angular.module('weatherIPCA')
         });
         
         //modelo utilizado na view
-        $scope.user = {'nome':'', 'lat':'', 'lng':''};
+        $scope.user = {'nome':'', 'lat':'', 'lng':'', 'temperatura:':'-', 'rating':'-'};
 
         //função que retorna a localização actual
         $scope.actualLocationFunction = function() {
@@ -24,6 +24,7 @@ angular.module('weatherIPCA')
                         method: 'GET',
                         url: 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ',' + position.coords.longitude + '&key=AIzaSyAiJO35RmsBztphqjN2q6KidJskplx6fCw'
                     }).then(function successCallback(response) {
+                        $scope.actualLocation = response.data.results[0].address_components[1].short_name;
                         $scope.user.nome = response.data.results[0].address_components[0].short_name;
                         $scope.user.lat = position.coords.latitude;
                         $scope.user.lng = position.coords.longitude;
@@ -98,7 +99,10 @@ angular.module('weatherIPCA')
                 url: Login.apiURL + '/praias/',
                 data: dataPost
             }).success(function (response) {
-                console.log(response);
+                $scope.user.temperatura = response.praia.tempo[0].tempMin;
+                if(response.praia.rating!=null) {
+                    $scope.user.rating = response.praia.rating;
+                }
             }).error(function (error, status) {
                 console.log(error);
                 console.log(status);
