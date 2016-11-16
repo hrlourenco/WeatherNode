@@ -2,6 +2,7 @@ angular.module('weatherIPCA')
     .controller('mainController', ['$scope', '$location', '$cookies', 'LoginService', 'Permissions', '$window',
     function($scope, $location, $cookies, Login, Permissions, $window) {
         $scope.$on('$routeChangeStart', function(scope, next, current) {
+            $scope.username = Login.username;
             //auto login
             var val = $cookies.getObject(Login.cookieName);
             if(val != null) {
@@ -31,6 +32,14 @@ angular.module('weatherIPCA')
         },
             function(newValueLoggedIn) {
                 $scope.isLogged = newValueLoggedIn;
+            }
+        );
+
+        $scope.$watch(function() {
+            return Login.username;
+        },
+            function(user) {
+                $scope.username = user;
             }
         );
         

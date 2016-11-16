@@ -16,6 +16,11 @@ app.config(['$routeProvider', function($routeProvider) {
         templateUrl : 'views/login/register.html',
         controller: 'loginController'
     })
+    .when("/update", {
+        templateUrl : 'views/login/update.html',
+        controller: 'loginController',
+        permission: 'general'
+    })
     .when("/home", {
         templateUrl : 'views/home',
         controller: 'homeController',

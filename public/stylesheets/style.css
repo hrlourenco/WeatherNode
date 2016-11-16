@@ -160,6 +160,16 @@ body {
   float: left;
 }
 
+.hello {
+  color: #FFF;
+  z-index: 1;
+  position: absolute;
+  font-size: 15px;
+  height: 70px;
+  padding-top: 25px;
+  padding-left: 15px;
+}
+
 @media screen and (max-width: 534px) {
     .card {
       margin-left: 20%;

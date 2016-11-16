@@ -12,6 +12,7 @@
   <body class="bodyWeather" ng-controller="mainController">
     <div id="main">
       <div ng-view class="mainView" id="mainView"></div>
+      <div class="hello" ng-show="isLogged"><span>Bem vindo,&nbsp;{{username}}</span></div>
       
       <div ng-controller="homeController" class="topBar" ng-hide="hideTopBar">
         <nav class="navbar navbar-default">
@@ -37,7 +38,7 @@
                   </a>
                 </li>
                 <li validate-permission="admin,general" ng-show="isLogged">
-                  <a class="btn" ng-click="goView('login')">
+                  <a class="btn" ng-click="goView('update')">
                     <img src="images/general/settings.png" alt="User Account" class="iconTop">
                   </a>
                 </li>

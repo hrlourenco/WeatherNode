@@ -10,11 +10,11 @@ angular.module('weatherIPCA')
             //função para o botao submit, vai à API tirar os dados do utilizador
             $scope.loginSubmit = function() {
                 //var hash = $crypto.encrypt($scope.credentials.username + $scope.credentials.password, 'PalavraReservadaDeEncriptacaoFromServer');
-                var hash = $scope.credentials.password;
+                var hash = $scope.credentials.username + $scope.credentials.password;
                 //console.log(hash);
                 $http({
                     method: 'GET',
-                    url: User.apiURL + '/users/' + hash,
+                    url: User.apiURL + '/users/' + hash
                 }).success(function (response) {
                     //dados do serviço LoginService
                     User.userId = response._id;
@@ -59,7 +59,7 @@ angular.module('weatherIPCA')
                 if($scope.credentials.password == $scope.credentials.repeatpassword) {
                     var dataPost = {
                         "username": $scope.credentials.username,
-                        "passwordHash": $scope.credentials.password
+                        "passwordHash": $scope.credentials.username+$scope.credentials.password
                     };
                     $http({
                         method: 'POST',
@@ -93,6 +93,37 @@ angular.module('weatherIPCA')
                         $scope.errorMessage.success = false;
                         $scope.errorMessage.error = true;
                         $scope.errorMessage.message = 'Erro ao criar utilizador!';
+                        
+                        console.log(error);
+                    });       
+                }
+                else {
+                    $scope.errorMessage.success = false;
+                    $scope.errorMessage.error = true;
+                    $scope.errorMessage.message = 'Password não idênticas!';
+                } 
+            }
+
+            $scope.updateUser = function() {
+                if($scope.credentials.password == $scope.credentials.repeatpassword) {
+                    var dataPost = {
+                        "_id": User.userId, 
+                        "username": $scope.credentials.username,
+                        "passwordHash": $scope.credentials.username+$scope.credentials.password
+                    };
+                    console.log(dataPost);
+                    $http({
+                        method: 'PUT',
+                        url: User.apiURL + '/users/',
+                        data: dataPost
+                    }).success(function (response) {
+                        $scope.errorMessage.success = true;
+                        $scope.errorMessage.error = false;
+                        $scope.errorMessage.message = 'Actualizado com sucesso.';
+                    }).error(function (error, status) {
+                        $scope.errorMessage.success = false;
+                        $scope.errorMessage.error = true;
+                        $scope.errorMessage.message = 'Erro ao actualizar password!';
                         
                         console.log(error);
                     });       

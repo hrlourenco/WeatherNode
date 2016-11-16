@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/stylesheets/login.css" />
+<div class="wrapper">
+	<div class="container">
+		<h1>Alterar Password</h1>
+		
+		<form class="form">
+			<input type="text" placeholder="Username" ng-model="credentials.username">
+			<input type="password" placeholder="Password" ng-model="credentials.password">
+			<input type="password" placeholder="Repeat Password" ng-model="credentials.repeatpassword" ng-change="validatePassword()">
+			<button type="submit" id="login-button" ng-click="updateUser()">Save</button>
+			<button type="button" id="cancel-button" ng-click="goView('home')">Cancel</button>
+			<div class="alert alert-danger errorAlert" ng-show="errorMessage.error">
+				<span>{{errorMessage.message}}</span>
+			</div>
+			<div class="alert alert-success errorAlert" ng-show="errorMessage.success">
+				<span>{{errorMessage.message}}</span>
+				<br>
+				<button type="button" class="btn btn-default btn-xs col-sm-5" ng-click="goView('home')">Ok</button>
+			</div>
+		</form>
+	</div>
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>

@@ -170,11 +170,13 @@ angular.module('weatherIPCA')
             var dataPost = {
                 "userId":Login.userId,
                 "praiaId":Login.userId,
-                "ratingGeral": document.getElementById('rangeinput').value,
-                "ratingCriancas":document.getElementById('rangeinput').value,
-                "ratingEquipamento":document.getElementById('rangeinput').value,
-                "ratingSeguranca":document.getElementById('rangeinput').value
+                "ratingGeral": parseInt(document.getElementById('rangeinput').value),
+                "ratingCriancas":parseInt(document.getElementById('rangeinput').value),
+                "ratingEquipamento":parseInt(document.getElementById('rangeinput').value),
+                "ratingSeguranca":parseInt(document.getElementById('rangeinput').value)
             };
+
+            console.log(dataPost);
 
             $http({
                 method: 'POST',
