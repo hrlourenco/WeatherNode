@@ -34,7 +34,7 @@ angular.module('weatherIPCA')
     .factory('Permissions', function($rootScope) {
         var permissionList = [];
         return {
-            //função que permite injectar a lista de permissões
+            //função que permite injectar a lista de permissões 
             setPermission: function (list) {
                 permissionList = list;
                 $rootScope.$broadcast('permissionsChanged');
