@@ -20,6 +20,10 @@
     position: relative;
 }
 /*CARD*/
+.cardsGeral {
+    margin-top: 50px;
+}
+
 .cardDetail {
     background-color: #EEE;
     color: #333;
@@ -79,4 +83,25 @@
   width: 30%;
   text-align: center;
   float: left;
+}
+
+
+.ratingDiv {
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    margin-left: 50px;
+    float: none;
+}
+
+.ratingDiv input {
+    width: 200px;
+    float: left;
+    margin-top: 11px;
+}
+
+#rangeValue{
+    margin-left: 50px;
+    color: #FFFFFF;
+    margin-left: 220px; 
 }

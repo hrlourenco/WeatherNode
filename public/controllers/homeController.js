@@ -144,6 +144,7 @@ angular.module('weatherIPCA')
                 "praiaUserId": $scope.user.praiaId,
                 "favorita":fav
             };
+            console.log(dataPost);
             $http({
                 method: 'POST',
                 url: Login.apiURL + '/praias/fav/',
@@ -165,5 +166,34 @@ angular.module('weatherIPCA')
                 console.log(error);
             });        
         }
+
+        $scope.updateRating = function() {
+            var fav = false;
+            if($scope.user.favorita=='false') {
+                fav = 'true';
+            }
+            
+            var dataPost = {
+                "userId":Login.userId,
+                "praiaId":Login.userId,
+                "ratingGeral": document.getElementById('rangeinput').value,
+                "ratingCriancas":document.getElementById('rangeinput').value,
+                "ratingEquipamento":document.getElementById('rangeinput').value,
+                "ratingSeguranca":document.getElementById('rangeinput').value
+            };
+
+            console.log(dataPost);
+            $http({
+                method: 'POST',
+                url: Login.apiURL + '/rate/',
+                data: dataPost
+            }).success(function (response) {
+                $scope.user.rating = document.getElementById('rangeinput').value;
+                console.log($scope.user);
+            }).error(function (error, status) {
+                console.log(error);
+            });        
+        }
+
     }]);
 
