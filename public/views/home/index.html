@@ -10,7 +10,7 @@
         <input type="hidden" id="txtLat" ng-model="user.lat" />
         <input type="hidden" id="txtLng" ng-model="user.lng" />
 
-        <div>
+        <div ng-show="firstRequest">
             <div class="logodiv"><img src="images/integration/facebook.png" alt="Facebook" width="64" height="64"></div> 
             <div class="logodiv" ng-click="airbnb()"><img src="images/integration/airbnb.png" alt="airbnb" width="64" height="64"></div>  
             <div class="logodiv"><img src="images/integration/tripadvisor.png" alt="Trip Advisor" width="64" height="64"></div>

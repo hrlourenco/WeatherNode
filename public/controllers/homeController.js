@@ -120,6 +120,7 @@ angular.module('weatherIPCA')
                 if(response.praia.rating!=null) {
                     $scope.user.rating = response.praia.rating;
                 }
+                console.log(response);
             }).error(function (error, status) {
                 console.log(error);
             });

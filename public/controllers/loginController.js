@@ -56,5 +56,3 @@ angular.module('weatherIPCA')
             }
         }
     ]);
-//LOGIN: http://stackoverflow.com/questions/18805054/what-is-the-proper-way-to-log-in-users-using-angular-express
-//https://github.com/middleout/angular-cryptography
