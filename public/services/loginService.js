@@ -2,7 +2,7 @@
 angular.module('weatherIPCA')
     .factory('LoginService', function() {
         return {
-            apiURL: 'http://localhost:3000/api/v1',
+            apiURL: 'https://weatheripca.herokuapp.com/api/v1',
             isLogged: false,
             userId: '',
             username: '',
@@ -16,7 +16,7 @@ angular.module('weatherIPCA')
                 role:''
             },
             logout: function() {
-                apiURL = 'http://localhost:3000/api/v1',
+                apiURL = 'https://weatheripca.herokuapp.com/api/v1',
                 isLogged = false,
                 userId = '',
                 username = '',
