@@ -2,10 +2,12 @@ angular.module('weatherIPCA')
     .controller('loginController', ['$scope', '$location', '$rootScope', '$http', '$crypto', '$cookies', 'LoginService',
         function($scope, $location, $rootScope, $http, $crypto, $cookies, User) {
             $rootScope.hideTopBar = true;
-
+            
+            //modelos
             $scope.errorMessage = { error: false, success: false, message: ''};
             $scope.credentials = { userId: '', username: User.username, password: ''};
-
+            
+            //função para o botao submit, vai à API tirar os dados do utilizador
             $scope.loginSubmit = function() {
                 //var hash = $crypto.encrypt($scope.credentials.username + $scope.credentials.password, 'PalavraReservadaDeEncriptacaoFromServer');
                 var hash = $scope.credentials.username + '-' + $scope.credentials.password;
@@ -14,6 +16,7 @@ angular.module('weatherIPCA')
                     method: 'GET',
                     url: User.apiURL + '/users/' + hash,
                 }).success(function (response) {
+                    //dados do serviço LoginService
                     User.userId = response._id;
                     User.username = $scope.credentials.username;
                     User.isLogged = true;
@@ -21,10 +24,12 @@ angular.module('weatherIPCA')
                     User.cookieSchema.userId = response._id;
                     User.cookieSchema.role = User.defaultRole;
                     User.cookieSchema.username = $scope.credentials.username;
+                    //dados do modelo da scope
                     $scope.errorMessage.success = true;
                     $scope.errorMessage.error = false;
                     $scope.errorMessage.message = 'Deseja gravar os seus dados?';
                 }).error(function (error, status) {
+                    //dados do serviço LoginService
                     User.userId = '';
                     User.username = '';
                     User.isLogged = false;
@@ -32,7 +37,9 @@ angular.module('weatherIPCA')
                     User.cookieSchema.userId ='';
                     User.cookieSchema.username = '';
                     User.cookieSchema.role = User.defaultRole;
+                    //remover cookie
                     $cookies.remove(User.cookieName);
+                    //dados do modelo da scope
                     $scope.errorMessage.success = false;
                     $scope.errorMessage.error = true;
                     $scope.errorMessage.message = 'Credenciais inválidas!';
@@ -40,6 +47,7 @@ angular.module('weatherIPCA')
                 });
             };
 
+            //função para criação de cookie
             $scope.createCookie = function(req) {
                 if(req) {
                     $cookies.putObject(User.cookieName, User.cookieSchema);

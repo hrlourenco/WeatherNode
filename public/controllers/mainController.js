@@ -16,6 +16,7 @@ angular.module('weatherIPCA')
                 }
             }
 
+            //dados do proximo route
             var routeRole = next.$$route.permission; //vai ao controlador buscar o atributo 'permission'
             if(routeRole!=null) {
                 if(!Permissions.hasPermission(routeRole) || Login.role!=routeRole || !Login.isLogged) { //verificar se existe na lista de roles
@@ -38,6 +39,7 @@ angular.module('weatherIPCA')
             $location.path(view);
         }
 
+        //função botão logout
         $scope.logout = function() {
             $scope.isLogged = false;
             Login.logout();
