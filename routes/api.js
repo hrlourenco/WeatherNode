@@ -407,7 +407,6 @@ var userSchema = mongoose.Schema({
   username: String,
   passwordHash: String,
   praias: [{
-    favorita: Boolean,
     praia: String,
     coordenadas: {
       lat: Number,
