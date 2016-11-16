@@ -14,6 +14,14 @@ angular.module('weatherIPCA')
 
         //só após a primeira pesquisa, tem acesso às INTEGRAÇÕES
         $scope.firstRequest = false;
+
+        $scope.$watch(function() {
+            return Login.isLogged;
+        },
+            function(val) {
+                $scope.firstRequest = val;
+            }
+        );
         
         //modelo utilizado na view
         $scope.user = {'nome':'', 'lat':'', 'lng':'', 'temperatura':'-', 'rating':'-', 'imagem':'', 'mensagemTempo':'', 'tempo':'', 'praiaId':'', 'favorita':false};

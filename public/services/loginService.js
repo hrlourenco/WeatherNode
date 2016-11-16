@@ -47,6 +47,3 @@ angular.module('weatherIPCA')
             }
         }
     });
-
-
-    //http://nadeemkhedr.com/how-to-do-authorization-and-role-based-permissions-in-angularjs/

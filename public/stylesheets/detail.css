@@ -105,3 +105,9 @@
     color: #FFFFFF;
     margin-left: 220px; 
 }
+
+.voltar {
+    position: absolute;
+    top: 60px;
+    right: 0px;
+}
