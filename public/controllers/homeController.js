@@ -144,7 +144,6 @@ angular.module('weatherIPCA')
                 "praiaUserId": $scope.user.praiaId,
                 "favorita":fav
             };
-            console.log(dataPost);
             $http({
                 method: 'POST',
                 url: Login.apiURL + '/praias/fav/',
@@ -177,14 +176,12 @@ angular.module('weatherIPCA')
                 "ratingSeguranca":document.getElementById('rangeinput').value
             };
 
-            console.log(dataPost);
             $http({
                 method: 'POST',
                 url: Login.apiURL + '/rate/',
                 data: dataPost
             }).success(function (response) {
                 $scope.user.rating = document.getElementById('rangeinput').value;
-                //console.log($scope.user);
             }).error(function (error, status) {
                 console.log(error);
             });        

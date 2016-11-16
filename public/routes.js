@@ -14,8 +14,7 @@ app.config(['$routeProvider', function($routeProvider) {
     })
     .when("/register", {
         templateUrl : 'views/login/register.html',
-        controller: 'loginController',
-        permission: 'general'
+        controller: 'loginController'
     })
     .when("/home", {
         templateUrl : 'views/home',
