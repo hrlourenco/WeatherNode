@@ -12,8 +12,8 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
-    "angular-route": "^1.5.8",
     "angular-cookies": "^1.5.8",
+    "angular-route": "^1.5.8",
     "body-parser": "~1.15.1",
     "bootstrap": "^3.3.7",
     "cookie-parser": "~1.4.3",
@@ -22,6 +22,7 @@
     "ejs": "~2.4.1",
     "express": "~4.13.4",
     "express-session": "^1.14.2",
+    "font-awesome": "^4.7.0",
     "forecast": "^0.3.2",
     "mongoose": "^4.6.4",
     "morgan": "~1.7.0",
