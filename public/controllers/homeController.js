@@ -141,7 +141,7 @@ angular.module('weatherIPCA')
             }
             var dataPost = {
                 "userId":Login.userId,
-                "praiaUserId": $scope.user.nome,
+                "praiaUserId": $scope.user.praiaId,
                 "favorita":fav
             };
             $http({
