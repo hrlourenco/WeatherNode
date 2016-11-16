@@ -16,7 +16,7 @@ angular.module('weatherIPCA')
         $scope.firstRequest = false;
         
         //modelo utilizado na view
-        $scope.user = {'nome':'', 'lat':'', 'lng':'', 'temperatura':'-', 'rating':'-', 'imagem':'', 'mensagemTempo':'', 'tempo':'', 'praiaId':'', 'favorita':'false'};
+        $scope.user = {'nome':'', 'lat':'', 'lng':'', 'temperatura':'-', 'rating':'-', 'imagem':'', 'mensagemTempo':'', 'tempo':'', 'praiaId':'', 'favorita':false};
         $scope.dateToday = new Date();
 
         //função que retorna a localização actual
@@ -120,7 +120,6 @@ angular.module('weatherIPCA')
                 if(response.praia.rating!=null) {
                     $scope.user.rating = response.praia.rating;
                 }
-                console.log(response);
             }).error(function (error, status) {
                 console.log(error);
             });
@@ -137,8 +136,8 @@ angular.module('weatherIPCA')
         
         $scope.updateFavorite = function() {
             var fav = false;
-            if($scope.user.favorita=='false') {
-                fav = 'true';
+            if($scope.user.favorita==false) {
+                fav = true;
             }
             var dataPost = {
                 "userId":Login.userId,
@@ -151,18 +150,13 @@ angular.module('weatherIPCA')
                 url: Login.apiURL + '/praias/fav/',
                 data: dataPost
             }).success(function (response) {
-                $scope.user.favorita = fav;
-/*                
-                document.getElementById('fotoPraia').src = $scope.user.favoritaImg;
-                if($scope.user.favorita=='false') {
-                    $scope.user.favoritaImg = 'images/general/off.png';
+                if(fav==false) {
+                    document.getElementById('favImg').src = 'images/general/off.png';
                 }
                 else {
-                    $scope.user.favoritaImg = 'images/general/on.png';
+                    document.getElementById('favImg').src = 'images/general/on.png';
                 }
-                document.getElementById('fotoPraia').src = $scope.user.favoritaImg;
-                */
-                console.log(response);
+                $scope.user.favorita = fav;
             }).error(function (error, status) {
                 console.log(error);
             });        
@@ -190,7 +184,7 @@ angular.module('weatherIPCA')
                 data: dataPost
             }).success(function (response) {
                 $scope.user.rating = document.getElementById('rangeinput').value;
-                console.log($scope.user);
+                //console.log($scope.user);
             }).error(function (error, status) {
                 console.log(error);
             });        
