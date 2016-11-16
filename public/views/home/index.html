@@ -10,21 +10,24 @@
         <input type="hidden" id="txtLat" ng-model="user.lat" />
         <input type="hidden" id="txtLng" ng-model="user.lng" />
 
-        <div class="logodiv"><img src="images/integration/facebook.png" alt="Facebook" width="64" height="64"></div> 
-        <div class="logodiv" ng-click="airbnb()"><img src="images/integration/airbnb.png" alt="airbnb" width="64" height="64"></div>  
-        <div class="logodiv"><img src="images/integration/tripadvisor.png" alt="Trip Advisor" width="64" height="64"></div>
-        <div class="logodiv" data-toggle="modal" data-target="#modalMaps"><img src="images/integration/maps.png" alt="Google Maps" width="64" height="64"></div>
-        <div class="logodiv" style="background-color:#ecf0f1;"><img src="images/integration/camera.png" alt="Galery" width="64" height="64"></div>  
-        <div class="logodiv"><img src="images/integration/detail.png" alt="MEI Weather Details" width="64" height="64"></div>
-        <div class="dadosTempoHome col-md-12 col-xs-12">
-            <div class="temperatura col-md-4 col-xs-1 col-md-offset-2"><i class="fa fa-thermometer-full fa-2x"></i><span>{{user.temperatura}}º</span></div>
-            <div class="rating col-md-4 col-xs-1 col-md-offset-1"><i class="fa fa-star fa-2x"></i><span>{{user.rating}}</span></div>
+        <div>
+            <div class="logodiv"><img src="images/integration/facebook.png" alt="Facebook" width="64" height="64"></div> 
+            <div class="logodiv" ng-click="airbnb()"><img src="images/integration/airbnb.png" alt="airbnb" width="64" height="64"></div>  
+            <div class="logodiv"><img src="images/integration/tripadvisor.png" alt="Trip Advisor" width="64" height="64"></div>
+            <div class="logodiv" data-toggle="modal" data-target="#modalMaps"><img src="images/integration/maps.png" alt="Google Maps" width="64" height="64"></div>
+            <div class="logodiv" data-toggle="modal" data-target="#modalImages" ng-click="updateImage()"><img src="images/integration/camera.png" alt="Galery" width="64" height="64"></div>  
+            <div class="logodiv" ng-click="goView('details')"><img src="images/integration/detail.png" alt="MEI Weather Details" width="64" height="64"></div>
         </div>
+        <div class="dadosTempoHome col-md-12 col-xs-12">
+            <div class="temperatura col-md-5 col-xs-5 col-md-offset-1"><i class="fa fa-thermometer-full fa-2x"></i><span>{{user.temperatura}}º</span></div>
+            <div class="rating col-md-5 col-xs-5 col-md-offset-1"><i class="fa fa-star fa-2x"></i><span>{{user.rating}}</span></div>
+        </div>
+        <div class="mensagem col-md-12"><span>{{user.mensagemTempo}}</span></div>
     </div>
 
 </div>
 
-<!-- Modal -->
+<!-- Modal Google Maps -->
 <div class="modal fade" id="modalMaps" tabindex="-1" role="dialog" aria-labelledby="modalMapsLabel" >
   <div class="modal-dialog">
     <div class="modal-content">
@@ -37,6 +40,17 @@
             <div id="map" class="map"></div>
           </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Images -->
+<div class="modal fade" id="modalImages" tabindex="-1" role="dialog" aria-labelledby="modalImagesLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="imgModal">
+            <img src="" alt="foto" id="fotoPraia" />
+        </div>
     </div>
   </div>
 </div>

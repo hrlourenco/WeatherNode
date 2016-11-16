@@ -26,6 +26,11 @@ app.config(['$routeProvider', function($routeProvider) {
         redirect: 'views/home',
         permission: 'general'
     })
+    .when("/details", {
+        templateUrl : 'views/details',
+        controller: 'homeController',
+        permission: 'general'
+    })
 }]);
 
 //#TODO# lista de permissoes, deve ser obtida do servidor
