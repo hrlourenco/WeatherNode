@@ -118,7 +118,7 @@ angular.module('weatherIPCA')
                 $scope.user.tempo = response.praia.tempo;
                 $scope.user.praiaId = response.praia._id;
                 if(response.praia.rating!=null) {
-                    $scope.user.rating = response.praia.rating;
+                    $scope.user.rating = (response.praia.rating.ratingGeral/response.praia.rating.ratingGeralNum);
                 }
             }).error(function (error, status) {
                 console.log(error);
