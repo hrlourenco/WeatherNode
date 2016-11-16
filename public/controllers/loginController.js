@@ -21,6 +21,7 @@ angular.module('weatherIPCA')
                     User.username = $scope.credentials.username;
                     User.isLogged = true;
                     User.role = User.defaultRole;
+                    User.credito = response.credito;
                     User.cookieSchema.userId = response._id;
                     User.cookieSchema.role = User.defaultRole;
                     User.cookieSchema.username = $scope.credentials.username;
@@ -34,6 +35,7 @@ angular.module('weatherIPCA')
                     User.username = '';
                     User.isLogged = false;
                     User.role = User.defaultRole;
+                    User.credito = 0;
                     User.cookieSchema.userId ='';
                     User.cookieSchema.username = '';
                     User.cookieSchema.role = User.defaultRole;
@@ -71,6 +73,7 @@ angular.module('weatherIPCA')
                         User.username = $scope.credentials.username;
                         User.isLogged = true;
                         User.role = User.defaultRole;
+                        User.credito = response.credito;
                         User.cookieSchema.userId = response._id;
                         User.cookieSchema.role = User.defaultRole;
                         User.cookieSchema.username = $scope.credentials.username;
@@ -84,6 +87,7 @@ angular.module('weatherIPCA')
                         User.username = '';
                         User.isLogged = false;
                         User.role = User.defaultRole;
+                        user.credito = 0;
                         User.cookieSchema.userId ='';
                         User.cookieSchema.username = '';
                         User.cookieSchema.role = User.defaultRole;

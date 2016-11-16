@@ -3,6 +3,7 @@ angular.module('weatherIPCA')
     function($scope, $location, $cookies, Login, Permissions, $window) {
         $scope.$on('$routeChangeStart', function(scope, next, current) {
             $scope.username = Login.username;
+            $scope.credito = Login.credito;
             //auto login
             var val = $cookies.getObject(Login.cookieName);
             if(val != null) {
@@ -42,7 +43,14 @@ angular.module('weatherIPCA')
                 $scope.username = user;
             }
         );
-        
+
+        $scope.$watch(function() {
+            return Login.credito;
+        },
+            function(credito) {
+                $scope.credito = credito;
+            }
+        );        
         //método responsável pelo redirecionamento
         $scope.goView = function(view) {
             $location.path(view);

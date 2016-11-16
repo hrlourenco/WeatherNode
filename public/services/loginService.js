@@ -2,11 +2,12 @@
 angular.module('weatherIPCA')
     .factory('LoginService', function() {
         return {
-            apiURL: 'https://weatheripca.herokuapp.com/api/v1',
+            apiURL: 'http://localhost:3000/api/v1',
             isLogged: false,
             userId: '',
             username: '',
             role: '',
+            credito: 0,
             defaultRole: 'general',
             cookieName: 'db0f4826',
             cookieSchema: {
@@ -15,11 +16,12 @@ angular.module('weatherIPCA')
                 role:''
             },
             logout: function() {
-                apiURL = 'https://weatheripca.herokuapp.com/api/v1',
+                apiURL = 'http://localhost:3000/api/v1',
                 isLogged = false,
                 userId = '',
                 username = '',
                 role = '',
+                credito = 0,
                 defaultRole = 'general',
                 cookieName = 'db0f4826',
                 cookieSchema = {

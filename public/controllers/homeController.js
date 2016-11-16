@@ -9,6 +9,7 @@ angular.module('weatherIPCA')
 
         //método chamada quando é feito o load deste controller
         $scope.$on('$routeChangeSuccess', function () {
+            console.log(Login);
             $scope.actualLocationFunction();
         });
 
@@ -177,7 +178,7 @@ angular.module('weatherIPCA')
             
             var dataPost = {
                 "userId":Login.userId,
-                "praiaId":Login.userId,
+                "praiaId":$scope.user.praiaId,
                 "ratingGeral": parseInt(document.getElementById('rangeinput').value),
                 "ratingCriancas":parseInt(document.getElementById('rangeinput').value),
                 "ratingEquipamento":parseInt(document.getElementById('rangeinput').value),
@@ -192,6 +193,7 @@ angular.module('weatherIPCA')
                 data: dataPost
             }).success(function (response) {
                 $scope.user.rating = document.getElementById('rangeinput').value;
+                Login.credito = response.credito;
             }).error(function (error, status) {
                 console.log(error);
             });        
