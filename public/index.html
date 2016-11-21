@@ -12,7 +12,7 @@
   <body class="bodyWeather" ng-controller="mainController">
     <div id="main">
       <div ng-view class="mainView" id="mainView"></div>
-      <div class="hello" ng-show="isLogged"><span>Bem vindo,&nbsp;{{username}}.</span></div>
+      <div class="hello" ng-show="isLogged"><span>Bem vindo,&nbsp;{{username}}. Tem {{credito}} créditos.</span></div>
       
       <div ng-controller="homeController" class="topBar" ng-hide="hideTopBar">
         <nav class="navbar navbar-default">
