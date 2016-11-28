@@ -109,7 +109,7 @@ angular.module('weatherIPCA')
         $scope.getPraiaFromAPI = function(dataPost) {
             $http({
                 method: 'POST',
-                url: Login.apiURL + '/praias/',
+                url: 'http://localhost:3000/api/v1/praias/',
                 data: dataPost
             }).success(function (response) {
                 $scope.user.temperatura = response.praia.tempo[0].tempMin;
@@ -120,9 +120,11 @@ angular.module('weatherIPCA')
                 if(response.praia.rating!=null) {
                     $scope.user.rating = response.praia.rating;
                 }
+                console.log(response);
             }).error(function (error, status) {
                 console.log(error);
             });
+            console.log(Login.apiURL);
         }
 
         $scope.updateImage = function() {
@@ -146,7 +148,7 @@ angular.module('weatherIPCA')
             };
             $http({
                 method: 'POST',
-                url: Login.apiURL + '/praias/fav/',
+                url: 'http://localhost:3000/api/v1/praias/fav/',
                 data: dataPost
             }).success(function (response) {
                 if(fav==false) {
@@ -161,24 +163,19 @@ angular.module('weatherIPCA')
             });        
         }
 
-        $scope.updateRating = function() {
-            var fav = false;
-            if($scope.user.favorita=='false') {
-                fav = 'true';
-            }
-            
+        $scope.updateRating = function() {            
             var dataPost = {
                 "userId":Login.userId,
-                "praiaId":Login.userId,
+                "praiaId":$scope.user.praiaId,
                 "ratingGeral": document.getElementById('rangeinput').value,
                 "ratingCriancas":document.getElementById('rangeinput').value,
                 "ratingEquipamento":document.getElementById('rangeinput').value,
                 "ratingSeguranca":document.getElementById('rangeinput').value
             };
-
+            console.log(dataPost);
             $http({
                 method: 'POST',
-                url: Login.apiURL + '/rate/',
+                url: 'http://localhost:3000/api/v1/rate/',
                 data: dataPost
             }).success(function (response) {
                 $scope.user.rating = document.getElementById('rangeinput').value;

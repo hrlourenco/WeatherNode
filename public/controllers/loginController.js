@@ -14,7 +14,7 @@ angular.module('weatherIPCA')
                 //console.log(hash);
                 $http({
                     method: 'GET',
-                    url: User.apiURL + '/users/' + hash,
+                    url: 'http://localhost:3000/api/v1/users/' + hash,
                 }).success(function (response) {
                     //dados do serviço LoginService
                     User.userId = response._id;
@@ -63,7 +63,7 @@ angular.module('weatherIPCA')
                     };
                     $http({
                         method: 'POST',
-                        url: User.apiURL + '/users/',
+                        url: 'http://localhost:3000/api/v1/users/',
                         data: dataPost
                     }).success(function (response) {
                         //dados do serviço LoginService
