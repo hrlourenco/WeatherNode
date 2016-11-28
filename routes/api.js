@@ -181,8 +181,12 @@ router.post('/praias/', function(req, res, next) {
             forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
               if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
               var img="";
-              if(response.body.results[0].hasOwnProperty("photos")){
-                img = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + response.body.results[0].photos[0].photo_reference + "&key=AIzaSyBITKEHhyk2e-LG-XA59DfpxxFqoDmzqm4";
+              for(var i=0; response.body.results.length; i++){
+                console.log(i);
+                if(response.body.results[i].hasOwnProperty("photos")){
+                  img = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + response.body.results[i].photos[0].photo_reference + "&key=AIzaSyBITKEHhyk2e-LG-XA59DfpxxFqoDmzqm4";
+                  break;
+                }
               }
               var newPraia = new Praia({
                 "praia":req.body.praia,
