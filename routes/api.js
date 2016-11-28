@@ -99,9 +99,9 @@ router.post('/praias/', function(req, res, next) {
         var hora = 60*60*1000;
         var currDt = new Date();
         var tempDt = new Date(praia.dataTempo.toISOString());
-        
+
         var diffHoras = (currDt-tempDt)/hora;
-        
+
         if (diffHoras>4){
           forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
             if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
@@ -275,15 +275,15 @@ router.post('/rate/', function(req, res, next){
     var hora = 60*60*1000;
     var currDt = new Date();
     var tempDt = new Date(user.ultimoRate.toISOString());
-    
+
     var diffHoras = (currDt-tempDt)/hora;
-    
+
     if (diffHoras>4){
       auxUser = user;
       Praia.findOne({"_id":req.body.praiaId, "enable":"true"}, function (err, praia){
         auxPraia = praia;
         var bonus = 3;
-        
+
         if(req.body.img){
 
           var storage = multer.diskStorage({
@@ -336,7 +336,7 @@ router.post('/rate/', function(req, res, next){
             }
           }else{
             auxPraia.rating.ratingGeral = praia.rating.ratingGeral + req.body.ratingGeral;
-            auxPraia.rating.ratingGeralNum = auxPraia.rating.ratingGeralNum + 1; 
+            auxPraia.rating.ratingGeralNum = auxPraia.rating.ratingGeralNum + 1;
             auxPraia.rating.ratingCriancas = praia.rating.ratingCriancas + req.body.ratingCriancas;
             auxPraia.rating.ratingCriancasNum = auxPraia.rating.ratingCriancasNum + 1;
             auxPraia.rating.ratingEquipamento = praia.rating.ratingEquipamento + req.body.ratingEquipamento;
@@ -390,6 +390,8 @@ router.post('/rate/', function(req, res, next){
           })
         })
       })
+    } else {
+      return res.status(203).json({"httpCodeResponse": 203, "internalErrorCode": 150, "Message": "Erro de acesso"});
     }
   })
 });
@@ -408,6 +410,29 @@ router.post('/praias/fav/', function(req, res, next){
     })
   })
 });
+
+router.post('/file_upload', function (req, res) {
+
+   console.log(req.files.file.name);
+   console.log(req.files.file.path);
+   console.log(req.files.file.type);
+
+   var file = __dirname + "/" + req.files.file.name;
+   fs.readFile( req.files.file.path, function (err, data) {
+        fs.writeFile(file, data, function (err) {
+         if( err ){
+              console.log( err );
+         }else{
+               response = {
+                   message:'File uploaded successfully',
+                   filename:req.files.file.name
+              };
+          }
+          console.log( response );
+          res.end( JSON.stringify( response ) );
+       });
+   });
+})
 
 
 var userSchema = mongoose.Schema({
@@ -463,14 +488,14 @@ var praiaSchema = mongoose.Schema({
 var User = mongoose.model('user', userSchema);
 var Praia = mongoose.model('praia', praiaSchema);
 
-// Initialize 
+// Initialize
 var forecast = new Forecast({
   service: 'darksky',
   key: '16ef7feb45a9ccf2fe4ec027a2fbdda8',
   units: 'celcius',
   lang: 'pt',
-  cache: true,      // Cache API requests 
-  ttl: {            // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/ 
+  cache: true,      // Cache API requests
+  ttl: {            // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/
     minutes: 27,
     seconds: 45
   }
