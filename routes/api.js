@@ -391,7 +391,7 @@ router.post('/rate/', function(req, res, next){
         })
       })
     } else {
-      return res.status(203).json({"httpCodeResponse": 203, "internalErrorCode": 150, "Message": "Erro de acesso"});
+      return res.status(203).json({"httpCodeResponse": 203, "internalErrorCode": 150, "Message": "Negado o acesso"});
     }
   })
 });
