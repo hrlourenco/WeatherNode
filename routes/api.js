@@ -180,9 +180,13 @@ router.post('/praias/', function(req, res, next) {
           if (!err && response) {
             forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
               if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
+              var img="";
+              if(response.body.results[0].hasOwnProperty("photos")){
+                img = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + response.body.results[0].photos[0].photo_reference + "&key=AIzaSyBITKEHhyk2e-LG-XA59DfpxxFqoDmzqm4";
+              }
               var newPraia = new Praia({
                 "praia":req.body.praia,
-                "imagem":"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + response.body.results[0].photos[0].photo_reference + "&key=AIzaSyBITKEHhyk2e-LG-XA59DfpxxFqoDmzqm4",
+                "imagem":img,
                 "coordenadas":{
                   "lat":req.body.coordenadas.lat,
                   "long":req.body.coordenadas.long
