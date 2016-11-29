@@ -413,10 +413,6 @@ router.post('/praias/fav/', function(req, res, next){
 });
 
 router.post('/file_upload/', function (req, res) {
-
-   res.status(200).send("File name " + req.files.file.name);
-
-/*
    var file = __dirname + "/" + req.files.file.name;
    fs.readFile( req.files.file.path, function (err, data) {
         fs.writeFile(file, data, function (err) {
@@ -432,7 +428,6 @@ router.post('/file_upload/', function (req, res) {
           res.end( JSON.stringify( response ) );
        });
    });
-*/
 })
 
 
