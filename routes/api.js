@@ -413,21 +413,19 @@ router.post('/praias/fav/', function(req, res, next){
 });
 
 router.post('/file_upload/', function (req, res) {
-  System.err.println("Hello, logs!");
   var file = __dirname + "/../public/images/" + req.files.file.name;
-  fs.readFile( req.files.file.path, function (err, data) {
-      fs.writeFile(file, data, function (err) {
-       if( err ){
-            console.log( err );
-       }else{
-             response = {
-                 message:'File uploaded successfully',
-                 filename:req.files.file.name
-            };
-        }
-        console.log( response );
-        res.end( JSON.stringify( response ) );
-     });
+  var data = req.files['image'][0].buffer;
+  fs.writeFile(file, data, function (err) {
+   if( err ){
+        console.log( err );
+   }else{
+         response = {
+             message:'File uploaded successfully',
+             filename:req.files.file.name
+        };
+    }
+    console.log( response );
+    res.end( JSON.stringify( response ) );
   });
 })
 

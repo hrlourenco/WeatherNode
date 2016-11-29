@@ -10,6 +10,7 @@ var api = require('./routes/api');
 var cors = require('cors')
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var multer = require('multer');
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(multer({ inMemory: true, putSingleFilesInArray: true }));
 app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'keyboard cat',
