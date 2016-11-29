@@ -4,9 +4,10 @@ var mongoose = require('mongoose');
 var where = require('where');
 var Forecast = require('forecast');
 var GooglePlaces = require('node-googleplaces');
-var multer = require('multer');
 var express = require('express');
 var fileUpload = require('express-fileupload');
+var multer  = require('multer');
+var upload = multer({ dest: 'public/images' });
 var app = express();
 
 // default options
@@ -418,8 +419,8 @@ router.post('/praias/fav/', function(req, res, next){
   })
 });
 
-router.post('/file_upload/', function (req, res) {
-  res.send(req.files);
+router.post('/file_upload/', upload.single('image'), function (req, res) {
+  res.send("Concluido");
 });
 
 var userSchema = mongoose.Schema({
