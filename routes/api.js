@@ -5,6 +5,12 @@ var where = require('where');
 var Forecast = require('forecast');
 var GooglePlaces = require('node-googleplaces');
 var multer = require('multer');
+var express = require('express');
+var fileUpload = require('express-fileupload');
+var app = express();
+
+// default options
+app.use(fileUpload());
 
 
 /* GET home page. */
@@ -413,20 +419,23 @@ router.post('/praias/fav/', function(req, res, next){
 });
 
 router.post('/file_upload/', function (req, res) {
-  //Set the directory names
-  var photoDir = __dirname + "/../public/images/";
-  var photoName = req.files.source.name;
+  var sampleFile;
 
-  fs.rename(
-    req.files.source.path,
-    photoDir+photoName,
-    function(err){
-      if(err != null){
-        res.send({error:"Server Writting No Good"});
-      };
+    if (!req.files) {
+        res.send('No files were uploaded.');
+        return;
     }
-  );
-});
+
+    sampleFile = req.files.image;
+    sampleFile.mv('public/images/' + req.filename, function(err) {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            res.send('File uploaded!');
+        }
+    });
+  });
 
 var userSchema = mongoose.Schema({
   enable: { type: Boolean, default: true },
