@@ -413,21 +413,19 @@ router.post('/praias/fav/', function(req, res, next){
 });
 
 router.post('/file_upload/', function (req, res) {
-  var file = __dirname + "/../public/images/" + req.files.file.name;
-  var data = req.files['image'][0].buffer;
-  fs.writeFile(file, data, function (err) {
-   if( err ){
-        console.log( err );
-   }else{
-         response = {
-             message:'File uploaded successfully',
-             filename:req.files.file.name
-        };
+  //Set the directory names
+  var photoDir = __dirname + "/../public/images/";
+  var photoName = req.files.source.name;
+
+  fs.rename(
+    req.files.source.path,
+    photoDir+photoName,
+    function(err){
+      if(err != null){
+        res.send({error:"Server Writting No Good"});
+      };
     }
-    console.log( response );
-    res.end( JSON.stringify( response ) );
-  });
-})
+  );
 
 
 var userSchema = mongoose.Schema({
