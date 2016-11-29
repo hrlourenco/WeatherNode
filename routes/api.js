@@ -414,9 +414,7 @@ router.post('/praias/fav/', function(req, res, next){
 
 router.post('/file_upload/', function (req, res) {
 
-   console.log("File name " + req.files.file.name);
-   console.log("File path " + req.files.file.path);
-   console.log("File type " + req.files.file.type);
+   res.send("File name " + req.files.file.name);
 
 /*
    var file = __dirname + "/" + req.files.file.name;
