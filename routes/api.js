@@ -420,7 +420,7 @@ router.post('/praias/fav/', function(req, res, next){
 });
 
 router.post('/file_upload/', upload.single('image'), function (req, res) {
-  res.send("Concluido");
+  res.status(200).send("Concluido");
 });
 
 var userSchema = mongoose.Schema({
