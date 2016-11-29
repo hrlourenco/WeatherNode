@@ -71,7 +71,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.use(multer({dest:'./public/images/'}));
+app.use(multer({dest:'./public/images/'}).single(...));
 
 if(isDevMode)
 {
