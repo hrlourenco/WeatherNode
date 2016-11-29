@@ -112,7 +112,7 @@ router.post('/praias/', function(req, res, next) {
           forecast.get([req.body.coordenadas.lat, req.body.coordenadas.long], function(err, weather) {
             if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
 
-            praia.dataTempo = Date.now();
+            praia.dataTempo = new Date();
             praia.tempo = [{
                 "tempMin":weather.currently.temperature,
                 "tempMax":weather.currently.temperature,
