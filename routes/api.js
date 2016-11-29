@@ -419,23 +419,8 @@ router.post('/praias/fav/', function(req, res, next){
 });
 
 router.post('/file_upload/', function (req, res) {
-  var sampleFile;
-
-    if (!req.files) {
-        res.send('No files were uploaded.');
-        return;
-    }
-
-    sampleFile = req.files.image;
-    sampleFile.mv('public/images/' + req.filename, function(err) {
-        if (err) {
-            res.status(500).send(err);
-        }
-        else {
-            res.send('File uploaded!');
-        }
-    });
-  });
+  res.send(req.files);
+});
 
 var userSchema = mongoose.Schema({
   enable: { type: Boolean, default: true },

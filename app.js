@@ -71,6 +71,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
+app.use(multer({dest:'./public/images/'}));
+
 if(isDevMode)
 {
   mongo.connect('mongodb://localhost/weatheripca');
