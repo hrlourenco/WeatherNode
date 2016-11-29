@@ -77,9 +77,11 @@ router.get('/praias/', function(req, res, next) {
 
 /* POST new praia . */
 router.post('/praias/', function(req, res, next) {
+  var userFountUser;
   var userFound = false;
   if(req.body.userId){
     User.findOne({"_id":req.body.userId}, function(err, user){
+      userFountUser = user;
       if(user){
         userFound = true;
         User.findOneAndUpdate({"_id":req.body.userId}, {"credito":user.credito-1}, function(err, user){
@@ -168,14 +170,14 @@ router.post('/praias/', function(req, res, next) {
               if(!userFound){
                 resPraia.rating=[];
               }
-              return res.status(200).json({"praia":resPraia, "proximas": proximas});
+              return res.status(200).json({"praia":resPraia, "proximas": proximas, "user": userFountUser});
             });
           });
         }else{
           if(!userFound){
             praia.rating=[];
           }
-          return res.status(200).json({"praia":praia, "proximas": proximas});
+          return res.status(200).json({"praia":praia, "proximas": proximas, "user": userFountUser});
         }
       }else{
           const places = new GooglePlaces("AIzaSyBITKEHhyk2e-LG-XA59DfpxxFqoDmzqm4");
@@ -262,7 +264,7 @@ router.post('/praias/', function(req, res, next) {
               }
               newPraia.save(function(err, praia){
                 if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
-                return res.status(200).json({"praia":praia, "proximas": proximas});
+                return res.status(200).json({"praia":praia, "proximas": proximas, "user": userFountUser});
               });
             });
           }
