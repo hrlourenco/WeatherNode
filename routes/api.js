@@ -81,10 +81,11 @@ router.post('/praias/', function(req, res, next) {
   var userFound = false;
   if(req.body.userId){
     User.findOne({"_id":req.body.userId}, function(err, user){
-      userFountUser = user;
       if(user){
         userFound = true;
         User.findOneAndUpdate({"_id":req.body.userId}, {"credito":user.credito-1}, function(err, user){
+          userFountUser = user;
+          userFountUser.credito = userFountUser.credito - 1;
           if (err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
         })
       }
