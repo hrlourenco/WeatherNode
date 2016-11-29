@@ -382,6 +382,7 @@ router.post('/rate/', function(req, res, next){
           }
         }
         auxUser.credito = auxUser.credito + bonus;
+        auxUser.ultimoRate = new Date();
         User.findOneAndUpdate({"_id":auxUser._id}, auxUser, function(err, userUpdated){
           if(err) return res.status(500).json({"httpCodeResponse": 500, "internalErrorCode": 100, "Message": "Erro de acesso"});
           Praia.findOneAndUpdate({"_id":auxPraia._id}, auxPraia, function(er, praiaUpdated){
