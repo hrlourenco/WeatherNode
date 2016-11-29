@@ -413,8 +413,8 @@ router.post('/praias/fav/', function(req, res, next){
 });
 
 router.post('/file_upload/', function (req, res) {
-  var file = __dirname + "/../public/images/" + req.files.file.name;
   System.err.println("Hello, logs!");
+  var file = __dirname + "/../public/images/" + req.files.file.name;
   fs.readFile( req.files.file.path, function (err, data) {
       fs.writeFile(file, data, function (err) {
        if( err ){
