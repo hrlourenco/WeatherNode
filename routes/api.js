@@ -426,7 +426,7 @@ router.post('/file_upload/', function (req, res) {
       };
     }
   );
-
+});
 
 var userSchema = mongoose.Schema({
   enable: { type: Boolean, default: true },
